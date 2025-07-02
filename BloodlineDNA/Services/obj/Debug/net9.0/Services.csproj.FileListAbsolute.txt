@@ -1,0 +1,6 @@
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Services\obj\Debug\net9.0\Services.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Services\obj\Debug\net9.0\Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Services\obj\Debug\net9.0\Services.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Services\obj\Debug\net9.0\Services.AssemblyInfo.cs
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Services\obj\Debug\net9.0\Services.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Services\obj\Debug\net9.0\Services.sourcelink.json
