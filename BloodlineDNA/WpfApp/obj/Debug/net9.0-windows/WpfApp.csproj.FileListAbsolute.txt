@@ -3,3 +3,6 @@ C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\B
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\WpfApp\obj\Debug\net9.0-windows\App.g.cs
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\WpfApp\obj\Debug\net9.0-windows\WpfApp_MarkupCompile.cache
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\WpfApp\obj\Debug\net9.0-windows\WpfApp_MarkupCompile.lref
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\WpfApp\obj\Debug\net9.0-windows\Styles\UIColors.baml
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\WpfApp\obj\Debug\net9.0-windows\Styles\UIFonts.baml
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\WpfApp\obj\Debug\net9.0-windows\LoginWindow.g.cs
