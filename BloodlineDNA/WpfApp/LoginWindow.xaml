@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
         Title="LoginWindow" Height="450" Width="800"
@@ -46,6 +47,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
 
@@ -56,64 +58,38 @@
                            Grid.Column="0"
                            VerticalAlignment="Center"
                            Margin="10, 0, 0, 0"/>
+
+                <Button x:Name="btnMaximize"
+                                BorderThickness="0"
+                                Grid.Column="1"
+                                Click="btnMaximize_Click"
+                                Tag="{StaticResource maximizeWindowControlColor}"
+                                Style="{StaticResource windowControlButton}">
+                    <fa:IconImage Icon="WindowMaximize"
+                                  Height="10"
+                                  Foreground="White"/>
+                </Button>
+
                 <Button x:Name="btnMinimize"
                         BorderThickness="0"
-                        Content="-"
-                        Foreground="White"
-                        FontSize="16"
-                        FontFamily="{StaticResource Montserrat}"
-                        Grid.Column="1"
-                        Click="btnMinimize_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#28AEED"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#278BEF"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="18" Height="18"
-                                    CornerRadius="9"
-                                    Background="{TemplateBinding Background}">          
-                                <ContentPresenter VerticalAlignment="Center"
-                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                        Grid.Column="2"
+                        Click="btnMinimize_Click"
+                        Tag="{StaticResource minimizeWindowControlColor}"
+                        Style="{StaticResource windowControlButton}">
+                    <fa:IconImage Icon="Minus" 
+                                  Width="10"
+                                  Foreground="White"/>
                 </Button>
 
                 <Button x:Name="btClose"
                         BorderThickness="0"
-                        Content="X"
-                        Foreground="White"
-                        FontSize="16"
-                        FontFamily="Arial"
-                        Grid.Column="2"
-                        Click="btClose_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#DA34AE"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#C62DAE"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Width="18" Height="18"
-                                    CornerRadius="9"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
+                        Grid.Column="3"
+                        Click="btClose_Click"
+                        Tag="{StaticResource closeWindowControlColor}"
+                        Style="{StaticResource windowControlButton}">
+                    <fa:IconImage Icon="Close" 
+                                  Width="10"
+                                  Foreground="White"/>
                 </Button>
 
                 <StackPanel Width="250" 

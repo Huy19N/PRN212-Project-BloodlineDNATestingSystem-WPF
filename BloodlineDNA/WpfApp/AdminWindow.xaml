@@ -11,7 +11,8 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        >
 
     <Border CornerRadius="10"
             BorderThickness="1">
@@ -48,7 +49,7 @@
                     <StackPanel Orientation="Horizontal"
                                 Height="35"
                                 Margin="15,25,0 40">
-                        <Image Source="pack://application:,,,/Images/Icon.png"/>
+                        <Image Source="/Images/Icon.png"/>
                         <TextBlock Text="Manager Panel" 
                                    Foreground="{StaticResource titleColor1}"
                                    FontFamily="{StaticResource Montserrat}"
@@ -57,14 +58,44 @@
                                    Margin="10,0,0,0"/>            
                     </StackPanel>
                     <!-- Menu -->
+                    <!-- Dashboard -->
                     <StackPanel>
                         <RadioButton Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color1}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
-                                
                             </StackPanel> 
+                        </RadioButton>
+                    </StackPanel>
+                    <!-- Customer -->
+                    <StackPanel>
+                        <RadioButton Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color2}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Users" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <!-- Booking -->
+                    <StackPanel>
+                        <RadioButton Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color3}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="CalendarCheck" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Booking" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <!-- Payment -->
+                    <StackPanel>
+                        <RadioButton Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color4}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="MoneyBill" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Payment" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
                         </RadioButton>
                     </StackPanel>
                 </StackPanel>
@@ -79,6 +110,63 @@
                         <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!-- Controll bar -->
+                        <RowDefinition Height="35"/>
+                        <!-- Header / Caption -->
+                        <RowDefinition Height="35"/>
+                        <!-- Content -->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Controll bar -->
+                    <StackPanel x:Name="ControlBar"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Grid.Row="0"
+                                Background="Transparent"
+                                Margin="0,0,5,0"
+                                MouseLeftButtonDown="ControlBar_MouseLeftButtonDown">
+
+                        <Button x:Name="btnClose"
+                                BorderThickness="0"
+                                Click="btnClose_Click"
+                                Tag ="{StaticResource closeWindowControlColor}"
+                                Style="{StaticResource windowControlButton}"
+                                Margin="0,0,5,0">
+                            <fa:IconImage Icon="Xmark" 
+                                          Height="10"
+                                          Foreground="White"/>
+                        </Button>
+
+
+                        <Button x:Name="btnMinimize"
+                                BorderThickness="0"
+                                Click="btnMinimize_Click"
+                                Style="{StaticResource windowControlButton}"
+                                Tag="{StaticResource minimizeWindowControlColor}"
+                                Margin="0,0,5,0">
+                            <fa:IconImage Icon="Minus" 
+                                          Width="10"
+                                          Foreground="White"/>
+                        </Button>
+
+                        <Button x:Name="btnMaximize"
+                                BorderThickness="0"
+                                Click="btnMaximize_Click"
+                                Tag="{StaticResource maximizeWindowControlColor}"
+                                Style="{StaticResource windowControlButton}">
+                            <fa:IconImage Icon="WindowMaximize"
+                                          Height="10"
+                                          Foreground="White"/>
+                        </Button>
+                        
+                        
+                    </StackPanel>
+                </Grid>
+                
             </Border>
 
 

@@ -42,5 +42,16 @@ namespace WpfApp
         {
             Application.Current.Shutdown();
         }
+
+        private void btnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+                return;
+            }
+            WindowState = WindowState.Maximized;
+            
+        }
     }
 }
