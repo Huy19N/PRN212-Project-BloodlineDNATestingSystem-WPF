@@ -1,10 +1,3 @@
-C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.csproj.AssemblyReference.cache
-C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.AssemblyInfoInputs.cache
-C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.AssemblyInfo.cs
-C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.csproj.CoreCompileInputs.cache
-C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.sourcelink.json
-C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\bin\Debug\net9.0\appsettings.json
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\bin\Debug\net9.0\Repositories.deps.json
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\bin\Debug\net9.0\Repositories.dll
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\bin\Debug\net9.0\Repositories.pdb
@@ -12,6 +5,12 @@ C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\B
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\bin\Debug\net9.0\DataAccessLayer.dll
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\bin\Debug\net9.0\BusinessObjects.pdb
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\bin\Debug\net9.0\DataAccessLayer.pdb
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.AssemblyInfo.cs
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.sourcelink.json
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Reposito.787EC4B2.Up2Date
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\Repositories.dll
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\Repositories\obj\Debug\net9.0\refint\Repositories.dll

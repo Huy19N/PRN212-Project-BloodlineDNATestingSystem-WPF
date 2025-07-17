@@ -1,77 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class TestStepDAO
+namespace DataAccessLayer
 {
-
-    public List<TestStep> GetAllTestStep()
+    public class TestStepDAO
     {
-        using var context = new GeneCareContext();
-        return context.TestSteps.ToList();
-    }
-    public bool CreateTestStep(TestStep testStep)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public TestStepDAO()
         {
-            if (testStep == null) return false;
-            if (context.TestSteps.Find(testStep.StepId) != null) return false;
-
-            context.TestSteps.Add(new TestStep
+            _context = new GeneCareContext();
+        }
+        public TestStepDAO(GeneCareContext context)
+        {
+            _context = context;
+        }
+        
+        public async Task<TestStep?> GetTestStepByIdAsync(int stepId)
+        {
+            try
             {
-                StepName = testStep.StepName
-            });
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateTestStep(TestStep testStep)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            if (testStep == null || String.IsNullOrWhiteSpace(testStep.StepName)) return false;
-            var existTestStep = context.TestSteps.Find(testStep.StepId);
-            if (existTestStep == null) return false;
+                return await _context.TestSteps.FindAsync(stepId);
+            }
 
-            existTestStep.StepName = testStep.StepName;
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving the test step.", ex);
+            }
         }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool DeleteTestStepById(int id)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            var testStep = context.TestSteps.Find(id);
-            if (testStep == null) return false;
 
-            context.TestSteps.Remove(testStep);
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<List<TestStep>> GetAllTestStepsAsync()
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                return await _context.TestSteps.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all test step.", ex);
+            }
+        }
+
+        public async Task<TestStep> CreateTestStepAsync(TestStep testStep)
+        {
+            try
+            {
+                _context.TestSteps.Add(testStep);
+                await _context.SaveChangesAsync();
+                return testStep;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the test step.", ex);
+            }
+        }
+
+        public async Task<TestStep> UpdateTestStepAsync(TestStep testStep)
+        {
+            try
+            {
+                _context.Entry(testStep).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return testStep;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the test step.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteTestStepAsync(int stepId)
+        {
+            try
+            {
+                var testStep = await _context.TestSteps.FindAsync(stepId);
+                if (testStep == null)
+                {
+                    return false; // Test step not found
+                }
+                _context.TestSteps.Remove(testStep);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the test step.", ex);
+            }
         }
     }
 }

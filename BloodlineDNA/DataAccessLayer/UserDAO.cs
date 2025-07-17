@@ -1,96 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class UserDAO
+namespace DataAccessLayer
 {
-    public List<User> GetAllUsers()
+    public class UserDAO
     {
-        using var context = new GeneCareContext();
-        return context.Users.ToList();
-    }
-    public bool CreateUser(User user)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public UserDAO()
         {
-            if (user == null)
+            _context = new GeneCareContext();
+        }
+        public UserDAO(GeneCareContext context)
+        {
+            _context = context;
+        }
+        
+        public async Task<User?> GetUserByIdAsync(int userId)
+        {
+            try
             {
-                return false;
+                return await _context.Users.FindAsync(userId);
             }
 
-            context.Users.Add(new User
+            catch (Exception ex)
             {
-                RoleId = user.RoleId,
-                Email = user.Email,
-                Password = user.Password
-            });
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateUser(User user)
-    {
-        using var context = new GeneCareContext();
-        if (user == null)
-        {
-            return false;
-        }
-        var existingUser = context.Users.Find(user.UserId);
-        if (existingUser == null)
-        {
-            return false;
+                throw new Exception("An error occurred while retrieving the user.", ex);
+            }
         }
 
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            existingUser.RoleId = user.RoleId;
-            existingUser.FullName = user.FullName;
-            existingUser.IdentifyId = user.IdentifyId;
-            existingUser.Address = user.Address;
-            existingUser.Email = user.Email;
-            existingUser.Phone = user.Phone;
-            existingUser.Password = user.Password;
-
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            try
+            {
+                return await _context.Users.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all users.", ex);
+            }
         }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool DeleteUserById(int id)
-    {
-        using var context = new GeneCareContext();
-        var user = context.Users.Find(id);
-        if (user == null) return false;
 
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public async Task<User> CreateUserAsync(User user)
         {
-            context.Users.Remove(user);
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            try
+            {
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the user.", ex);
+            }
         }
-        catch
+
+        public async Task<User> UpdateUserAsync(User user)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the user.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            try
+            {
+                var user = await _context.Users.FindAsync(userId);
+                if (user == null)
+                {
+                    return false; // User not found
+                }
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the user.", ex);
+            }
         }
     }
 }

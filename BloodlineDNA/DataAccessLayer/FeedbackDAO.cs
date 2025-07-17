@@ -1,96 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class FeedbackDAO
+namespace DataAccessLayer
 {
-
-    public List<Feedback> GetAllFeedbacks()
+    public class FeedbackDAO
     {
-        using var context = new GeneCareContext();
-        return context.Feedbacks.ToList();
-    }
-    public bool CreateFeedback(Feedback feedback)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public FeedbackDAO()
         {
-            if (feedback == null)
-            {
-                return false;
-            }
-            context.Feedbacks.Add(new Feedback
-            {
-                FeedbackId = feedback.FeedbackId,
-                UserId = feedback.UserId,
-                ServiceId = feedback.ServiceId,
-                CreatedAt = feedback.CreatedAt,
-                Comment = feedback.Comment,
-                Rating = feedback.Rating
-            });
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            _context = new GeneCareContext();
         }
-        catch
+        public FeedbackDAO(GeneCareContext context)
         {
-            transaction.Rollback();
-            return false;
+            _context = context;
         }
-
-    }
-    public bool UpdateFeedback(Feedback feedback)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        
+        public async Task<Feedback?> GetFeedbackByIdAsync(int feedbackId)
         {
-            if (feedback == null)
+            try
             {
-                return false;
+                return await _context.Feedbacks.FindAsync(feedbackId);
             }
 
-            var existingFeedback = context.Feedbacks.Find(feedback.FeedbackId);
-            if (existingFeedback == null)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("An error occurred while retrieving the feedback.", ex);
             }
-            existingFeedback.UserId = feedback.UserId;
-            existingFeedback.ServiceId = feedback.ServiceId;
-            existingFeedback.CreatedAt = feedback.CreatedAt;
-            existingFeedback.Comment = feedback.Comment;
-            existingFeedback.Rating = feedback.Rating;
+        }
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<List<Feedback>> GetAllFeedbacksAsync()
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                return await _context.Feedbacks.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all feedback.", ex);
+            }
         }
-    }
-    public bool DeleteFeedbackById(int id)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            var feedback = context.Feedbacks.Find(id);
-            if (feedback == null) return false;
-            context.Feedbacks.Remove(feedback);
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<Feedback> CreateFeedbackAsync(Feedback feedback)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Feedbacks.Add(feedback);
+                await _context.SaveChangesAsync();
+                return feedback;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the feedback.", ex);
+            }
+        }
+
+        public async Task<Feedback> UpdateFeedbackAsync(Feedback feedback)
+        {
+            try
+            {
+                _context.Entry(feedback).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return feedback;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the feedback.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteFeedbackAsync(int feedbackId)
+        {
+            try
+            {
+                var feedback = await _context.Feedbacks.FindAsync(feedbackId);
+                if (feedback == null)
+                {
+                    return false; // Feedback not found
+                }
+                _context.Feedbacks.Remove(feedback);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the feedback.", ex);
+            }
         }
     }
 }

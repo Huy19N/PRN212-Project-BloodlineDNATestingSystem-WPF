@@ -1,90 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class RoleDAO
+namespace DataAccessLayer
 {
-    public List<Role> GetAllRoles()
+    public class RoleDAO
     {
-        using var context = new GeneCareContext();
-        return context.Roles.ToList();
-    }
-
-    public bool CreateRole(Role role)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public RoleDAO()
         {
-            if (role == null)
+            _context = new GeneCareContext();
+        }
+        public RoleDAO(GeneCareContext context)
+        {
+            _context = context;
+        }
+        
+        public async Task<Role?> GetRoleByIdAsync(int roleId)
+        {
+            try
             {
-                return false;
+                return await _context.Roles.FindAsync(roleId);
             }
 
-            context.Roles.Add(new Role
+            catch (Exception ex)
             {
-                RoleName = role.RoleName,
-            });
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateRole(Role role)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            if (role == null)
-            {
-                return false;
+                throw new Exception("An error occurred while retrieving the role.", ex);
             }
-            var existingRole = context.Roles.Find(role.RoleId);
-            if (existingRole == null)
+        }
+
+        public async Task<List<Role>> GetAllRolesAsync()
+        {
+            try
             {
-                return false;
+                return await _context.Roles.ToListAsync();
             }
-
-            existingRole.RoleName = role.RoleName;
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all role.", ex);
+            }
         }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool DeleteRoleById(int id)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            var role = context.Roles.Find(id);
-            if (role == null) return false;
 
-            context.Roles.Remove(role);
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<Role> CreateRoleAsync(Role role)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Roles.Add(role);
+                await _context.SaveChangesAsync();
+                return role;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the role.", ex);
+            }
+        }
+
+        public async Task<Role> UpdateRoleAsync(Role role)
+        {
+            try
+            {
+                _context.Entry(role).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return role;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the role.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteRoleAsync(int roleId)
+        {
+            try
+            {
+                var role = await _context.Roles.FindAsync(roleId);
+                if (role == null)
+                {
+                    return false; // Role not found
+                }
+                _context.Roles.Remove(role);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the role.", ex);
+            }
         }
     }
 }

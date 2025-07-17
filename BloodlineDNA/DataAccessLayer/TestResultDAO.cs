@@ -1,91 +1,95 @@
 ﻿using BusinessObjects;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class TestResultDAO
+namespace DataAccessLayer
 {
-    public List<TestResult> GetAllTestResults()
+    public class TestResultDAO
     {
-        using var context = new GeneCareContext();
-        return context.TestResults.ToList();
-    }
-    public bool CreateTestResults(TestResult testResult)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public TestResultDAO()
         {
-            if (testResult == null)
+            _context = new GeneCareContext();
+        }
+        public TestResultDAO(GeneCareContext context)
+        {
+            _context = context;
+        }
+        
+        public async Task<TestResult?> GetTestResultByIdAsync(int resultId)
+        {
+            try
             {
-                return false;
+                return await _context.TestResults.FindAsync(resultId);
             }
 
-            context.TestResults.Add(new TestResult
+            catch (Exception ex)
             {
-                BookingId = testResult.BookingId,
-                Date = testResult.Date,
-                ResultSummary = testResult.ResultSummary,
-            });
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateTestResults(TestResult testResult)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            if (testResult == null)
-            {
-                return false;
+                throw new Exception("An error occurred while retrieving the test result.", ex);
             }
-            var existingTestResult = context.TestResults.Find(testResult.ResultId);
-            if (existingTestResult == null)
-            {
-                return false;
-            }
-            existingTestResult.BookingId = testResult.BookingId;
-            existingTestResult.Date = testResult.Date;
-            existingTestResult.ResultSummary = testResult.ResultSummary;
+        }
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<List<TestResult>> GetAllTestResultsAsync()
         {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool DeleteTestResultsById(int id)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            var testResult = context.TestResults.Find(id);
-            if (testResult == null)
+            try
             {
-                return false;
+                return await _context.TestResults.ToListAsync();
             }
-            context.TestResults.Remove(testResult);
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all test result.", ex);
+            }
         }
-        catch
+
+        public async Task<TestResult> CreateTestResultAsync(TestResult testResult)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.TestResults.Add(testResult);
+                await _context.SaveChangesAsync();
+                return testResult;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the test result.", ex);
+            }
+        }
+
+        public async Task<TestResult> UpdateTestResultAsync(TestResult testResult)
+        {
+            try
+            {
+                _context.Entry(testResult).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return testResult;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the test result.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteTestResultAsync(int resultId)
+        {
+            try
+            {
+                var testResult = await _context.TestResults.FindAsync(resultId);
+                if (testResult == null)
+                {
+                    return false; // Test result not found
+                }
+                _context.TestResults.Remove(testResult);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the test result.", ex);
+            }
         }
     }
 }

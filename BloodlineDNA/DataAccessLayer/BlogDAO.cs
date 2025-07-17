@@ -2,83 +2,94 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class BlogDAO
+namespace DataAccessLayer
 {
-    public List<Blog> GetAllBlog()
+    public class BlogDAO
     {
-        using var context = new GeneCareContext();
-        return context.Blogs.ToList();
-    }
-    public bool CreateBlog(Blog blog)
-    {
-        using var context = new GeneCareContext();
-        if (blog == null) return false;
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public BlogDAO()
         {
-            context.Blogs.Add(new Blog()
+            _context = new GeneCareContext();
+        }
+        public BlogDAO(GeneCareContext context)
+        {
+            _context = context;
+        }
+        
+        public async Task<Blog?> GetBlogByIdAsync(int blogId)
+        {
+            try
             {
-                Content = blog.Content,
-                CreatedAt = DateTime.Now,
-                Title = blog.Title,
-                UserId = blog.UserId,
-            });
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateBlog(Blog blog)
-    {
-        using var context = new GeneCareContext();
-        if (blog == null) return false;
-        var existingBlog = context.Blogs.Find(blog.BlogId);
-        if (existingBlog == null) return false;
+                return await _context.Blogs.FindAsync(blogId);
+            }
 
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            existingBlog.UserId = blog.UserId;
-            existingBlog.Title = blog.Title;
-            existingBlog.Content = blog.Content;
-            existingBlog.CreatedAt = blog.CreatedAt;
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving the blog.", ex);
+            }
+        }
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<List<Blog>> GetAllBlogsAsync()
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                return await _context.Blogs.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all blog.", ex);
+            }
         }
-    }
-    public bool DeleteBlogById(int id)
-    {
-        using var context = new GeneCareContext();
-        var blog = context.Blogs.Find(id);
-        if (blog == null) return false;
 
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public async Task<Blog> CreateBlogAsync(Blog blog)
         {
-            context.Blogs.Remove(blog);
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            try
+            {
+                _context.Blogs.Add(blog);
+                await _context.SaveChangesAsync();
+                return blog;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the blog.", ex);
+            }
         }
-        catch
+
+        public async Task<Blog> UpdateBlogAsync(Blog blog)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Entry(blog).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return blog;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the blog.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteBlogAsync(int blogId)
+        {
+            try
+            {
+                var blog = await _context.Blogs.FindAsync(blogId);
+                if (blog == null)
+                {
+                    return false; // Blog not found
+                }
+                _context.Blogs.Remove(blog);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the blog.", ex);
+            }
         }
     }
 }

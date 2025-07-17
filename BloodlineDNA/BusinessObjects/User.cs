@@ -7,7 +7,7 @@ public partial class User
 {
     public int UserId { get; set; }
 
-    public int? RoleId { get; set; }
+    public int RoleId { get; set; }
 
     public string? FullName { get; set; }
 
@@ -21,15 +21,19 @@ public partial class User
 
     public string? Password { get; set; }
 
+    public DateTime LastPwdChange { get; set; }
+
+    public virtual ICollection<AccessTokenBlacklist> AccessTokenBlacklists { get; set; } = new List<AccessTokenBlacklist>();
+
     public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
+    public virtual ICollection<LogLogin> LogLogins { get; set; } = new List<LogLogin>();
+
     public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
-    public virtual Role? Role { get; set; }
-
-    public virtual ICollection<Sample> Samples { get; set; } = new List<Sample>();
+    public virtual Role Role { get; set; } = null!;
 }

@@ -1,97 +1,95 @@
 ﻿using BusinessObjects;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class BookingDAO
+namespace DataAccessLayer
 {
-    public List<Booking> GetAllBookings()
+    public class BookingDAO
     {
-        using var context = new GeneCareContext();
-        return context.Bookings.ToList(); 
-    }
-    public bool CreateBooking(Booking booking)
-    {
-        using var context = new GeneCareContext();
-        if (booking == null)
+        private readonly GeneCareContext _context;
+        public BookingDAO()
         {
-            return false;
+            _context = new GeneCareContext();
         }
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public BookingDAO(GeneCareContext context)
         {
-            context.Bookings.Add(new Booking
+            _context = context;
+        }
+        
+        public async Task<Booking?> GetBookingByIdAsync(int bookingId)
+        {
+            try
             {
-                UserId = booking.UserId,
-                DurationId = booking.DurationId,
-                ServiceId = booking.ServiceId,
-                MethodId = booking.MethodId,
-                AppointmentTime = booking.AppointmentTime,
-                StatusId = booking.StatusId,
-                Date = booking.Date,
-            });
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateBooking(Booking booking)
-    {
-        using var context = new GeneCareContext();
-        if (booking == null)
-        {
-            return false;
-        }
-        var existingBooking = context.Bookings.Find(booking.BookingId);
-        if (existingBooking == null)
-        {
-            return false;
-        }
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            existingBooking.UserId = booking.UserId;
-            existingBooking.DurationId = booking.DurationId;
-            existingBooking.ServiceId = booking.ServiceId;
-            existingBooking.StatusId = booking.StatusId;
-            existingBooking.MethodId = booking.MethodId;
-            existingBooking.Date = booking.Date;
+                return await _context.Bookings.FindAsync(bookingId);
+            }
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving the booking.", ex);
+            }
         }
-        catch
-        {
-            transaction.Rollback();
-            return false;
 
+        public async Task<List<Booking>> GetAllBookingsAsync()
+        {
+            try
+            {
+                return await _context.Bookings.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all booking.", ex);
+            }
         }
-    }
-    public bool DeleteBookingById(int id)
-    {
-        using var context = new GeneCareContext();
-        var booking = context.Bookings.Find(id);
-        if (booking == null) return false;
 
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public async Task<Booking> CreateBookingAsync(Booking booking)
         {
-            context.Bookings.Remove(booking);
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            try
+            {
+                _context.Bookings.Add(booking);
+                await _context.SaveChangesAsync();
+                return booking;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the booking.", ex);
+            }
         }
-        catch
+
+        public async Task<Booking> UpdateBookingAsync(Booking booking)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Entry(booking).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return booking;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the booking.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteBookingAsync(int bookingId)
+        {
+            try
+            {
+                var booking = await _context.Bookings.FindAsync(bookingId);
+                if (booking == null)
+                {
+                    return false; // Booking not found
+                }
+                _context.Bookings.Remove(booking);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the booking.", ex);
+            }
         }
     }
 }

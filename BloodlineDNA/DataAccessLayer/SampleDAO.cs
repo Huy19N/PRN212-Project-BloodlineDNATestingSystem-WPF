@@ -1,98 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class SampleDAO
+namespace DataAccessLayer
 {
-    public List<Sample> GetAllSamples()
+    public class SampleDAO
     {
-        using var context = new GeneCareContext();
-        return context.Samples.ToList();
-    }
-    public bool CreateSample(Sample sample)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public SampleDAO()
         {
-            if (sample == null)
+            _context = new GeneCareContext();
+        }
+        public SampleDAO(GeneCareContext context)
+        {
+            _context = context;
+        }
+        
+        public async Task<Sample?> GetSampleByIdAsync(int sampleId)
+        {
+            try
             {
-                return false;
+                return await _context.Samples.FindAsync(sampleId);
             }
-            context.Samples.Add(new Sample
+
+            catch (Exception ex)
             {
-                BookingId = sample.BookingId,
-                PatientId = sample.PatientId,
-                Date = sample.Date,
-                SampleVariant = sample.SampleVariant,
-                CollectBy = sample.CollectBy,
-                DeliveryMethodId = sample.DeliveryMethodId,
-                Status = sample.Status
-            });
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateSample(Sample sample)
-    {
-        using var context = new GeneCareContext();
-        if (sample == null)
-        {
-            return false;
+                throw new Exception("An error occurred while retrieving the sample.", ex);
+            }
         }
 
-        var existingSample = context.Samples.Find(sample.SampleId);
-        if (existingSample == null)
+        public async Task<List<Sample>> GetAllSamplesAsync()
         {
-            return false;
+            try
+            {
+                return await _context.Samples.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all sample.", ex);
+            }
         }
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            existingSample.BookingId = sample.BookingId;
-            existingSample.PatientId = sample.PatientId;
-            existingSample.Date = sample.Date;
-            existingSample.SampleVariant = sample.SampleVariant;
-            existingSample.CollectBy = sample.CollectBy;
-            existingSample.DeliveryMethodId = sample.DeliveryMethodId;
-            existingSample.Status = sample.Status;
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<Sample> CreateSampleAsync(Sample sample)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Samples.Add(sample);
+                await _context.SaveChangesAsync();
+                return sample;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the sample.", ex);
+            }
+        }
 
+        public async Task<Sample> UpdateSampleAsync(Sample sample)
+        {
+            try
+            {
+                _context.Entry(sample).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return sample;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the sample.", ex);
+            }
         }
-    }
-    public bool DeleteSampleById(int id)
-    {
-        using var context = new GeneCareContext();
-        var Sample = context.Samples.Find(id);
-        if (Sample == null) return false;
 
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public async Task<bool> DeleteSampleAsync(int sampleId)
         {
-            context.Samples.Remove(Sample);
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                var sample = await _context.Samples.FindAsync(sampleId);
+                if (sample == null)
+                {
+                    return false; // Sample not found
+                }
+                _context.Samples.Remove(sample);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the sample.", ex);
+            }
         }
     }
 }

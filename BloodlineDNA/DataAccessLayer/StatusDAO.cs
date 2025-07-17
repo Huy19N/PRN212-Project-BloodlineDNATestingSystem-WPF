@@ -1,76 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class StatusDAO
+namespace DataAccessLayer
 {
-    public List<Status> GetAllStatus()
+    public class StatusDAO
     {
-        using var context = new GeneCareContext();
-        return context.Statuses.ToList();
-    }
-    public bool CreateStatus(Status status)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public StatusDAO()
         {
-            if (status == null || context.Statuses.Find(status.StatusId) != null) return false;
-            context.Statuses.Add(new Status
+            _context = new GeneCareContext();
+        }
+        public StatusDAO(GeneCareContext context)
+        {
+            _context = context;
+        }
+        
+        public async Task<Status?> GetStatusByIdAsync(int statusId)
+        {
+            try
             {
-                StatusName = status.StatusName,
-            });
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
+                return await _context.Statuses.FindAsync(statusId);
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving the status.", ex);
+            }
         }
 
-    }
-    public bool UpdateStatus(Status status)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public async Task<List<Status>> GetAllStatussAsync()
         {
-            var existStatus = context.Statuses.Find(status.StatusId);
-            if (existStatus == null) return false;
-            existStatus.StatusName = status.StatusName;
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            try
+            {
+                return await _context.Statuses.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all status.", ex);
+            }
         }
-        catch
-        {
 
-            transaction.Rollback();
-            return false;
+        public async Task<Status> CreateStatusAsync(Status status)
+        {
+            try
+            {
+                _context.Statuses.Add(status);
+                await _context.SaveChangesAsync();
+                return status;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the status.", ex);
+            }
         }
-    }
-    public bool DeleteStatusById(int id)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+
+        public async Task<Status> UpdateStatusAsync(Status status)
         {
-            var status = context.Statuses.Find(id);
-            if (status == null) return false;
-            context.Statuses.Remove(status);
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-
+            try
+            {
+                _context.Entry(status).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return status;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the status.", ex);
+            }
         }
-        catch
+
+        public async Task<bool> DeleteStatusAsync(int statusId)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                var status = await _context.Statuses.FindAsync(statusId);
+                if (status == null)
+                {
+                    return false; // Status not found
+                }
+                _context.Statuses.Remove(status);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the status.", ex);
+            }
         }
     }
 }

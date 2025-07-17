@@ -1,87 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class ServiceDAO
+namespace DataAccessLayer
 {
-    public List<Service> GetAllServices()
+    public class ServiceDAO
     {
-        using var context = new GeneCareContext();
-        return context.Services.ToList();
-    }
-    public bool CreateService(Service service)
-    {
-        using var context = new GeneCareContext();
-        if (service == null)
+        private readonly GeneCareContext _context;
+        public ServiceDAO()
         {
-            return false;
+            _context = new GeneCareContext();
         }
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public ServiceDAO(GeneCareContext context)
         {
-            context.Services.Add(new Service
+            _context = context;
+        }
+        
+        public async Task<Service?> GetServiceByIdAsync(int serviceId)
+        {
+            try
             {
-                ServiceName = service.ServiceName,
-                ServiceType = service.ServiceType,
-                Description = service.Description
-            });
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool UpdateService(Service service)
-    {
-        using var context = new GeneCareContext();
-        if (service == null)
-        {
-            return false;
-        }
-        var existingService = context.Services.Find(service.ServiceId);
-        if (existingService == null)
-        {
-            return false;
-        }
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            existingService.ServiceName = service.ServiceName;
-            existingService.ServiceType = service.ServiceType;
-            existingService.Description = service.Description;
+                return await _context.Services.FindAsync(serviceId);
+            }
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving the service.", ex);
+            }
         }
-        catch
-        {
-            transaction.Rollback();
-            return false;
-        }
-    }
-    public bool DeleteServiceById(int id)
-    {
-        using var context = new GeneCareContext();
-        var service = context.Services.Find(id);
-        if (service == null) return false;
 
-        using var transaction = context.Database.BeginTransaction();
-        try
+        public async Task<List<Service>> GetAllServicesAsync()
         {
-            context.Services.Remove(service);
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            try
+            {
+                return await _context.Services.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all service.", ex);
+            }
         }
-        catch
+
+        public async Task<Service> CreateServiceAsync(Service service)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Services.Add(service);
+                await _context.SaveChangesAsync();
+                return service;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the service.", ex);
+            }
+        }
+
+        public async Task<Service> UpdateServiceAsync(Service service)
+        {
+            try
+            {
+                _context.Entry(service).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return service;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the service.", ex);
+            }
+        }
+
+        public async Task<bool> DeleteServiceAsync(int serviceId)
+        {
+            try
+            {
+                var service = await _context.Services.FindAsync(serviceId);
+                if (service == null)
+                {
+                    return false; // Service not found
+                }
+                _context.Services.Remove(service);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the service.", ex);
+            }
         }
     }
 }

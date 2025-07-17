@@ -5,11 +5,13 @@ namespace BusinessObjects;
 
 public partial class VerifyEmail
 {
+    public string Key { get; set; } = null!;
+
     public string Email { get; set; } = null!;
 
-    public DateTime? CreatedAt { get; set; }
+    public bool IsResetPwd { get; set; }
 
-    public DateTime? ExpiredAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-    public string? Key { get; set; }
+    public DateTime ExpiredAt { get; set; }
 }

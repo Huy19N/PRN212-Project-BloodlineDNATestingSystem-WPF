@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\Admin\Desktop\Repository\PRN212-Project-BloodlineDNATestingSystem-WPF\BloodlineDNA\WpfApp\App.xaml
-4-687908139
+6-499416792
+11413424753
+6-356418540
+250-1327680484
+AdminWindow.xaml;LoginWindow.xaml;MainWindow.xaml;Styles\ButtonStyle.xaml;Styles\UIColors.xaml;Styles\UIFonts.xaml;
 
-5-1578225484
-239897044016
-LoginWindow.xaml;MainWindow.xaml;Styles\UIColors.xaml;Styles\UIFonts.xaml;
-
-True
+False
 

@@ -1,99 +1,95 @@
 ﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataAccessLayer;
-
-public class PatientDAO
+namespace DataAccessLayer
 {
-    public List<Patient> GetAllPatients()
+    public class PatientDAO
     {
-        using var context = new GeneCareContext();
-        return context.Patients.ToList();
-    }
-    public bool CreatePatient(Patient patient)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        private readonly GeneCareContext _context;
+        public PatientDAO()
         {
-            if (patient == null)
-            {
-                return false;
-            }
-            context.Patients.Add(new Patient
-            {
-                BookingId = patient.BookingId,
-                FullName = patient.FullName,
-                BirthDate = patient.BirthDate,
-                Gender = patient.Gender,
-                IdentifyId = patient.IdentifyId,
-                SampleType = patient.SampleType,
-                HasTestedDna = patient.HasTestedDna,
-                Relationship = patient.Relationship
-            });
-
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
+            _context = new GeneCareContext();
         }
-        catch
+        public PatientDAO(GeneCareContext context)
         {
-            transaction.Rollback();
-            return false;
+            _context = context;
         }
-    }
-    public bool UpdatePatient(Patient patient)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
+        
+        public async Task<Patient?> GetPatientByIdAsync(int patientId)
         {
-            if (patient == null)
+            try
             {
-                return false;
+                return await _context.Patients.FindAsync(patientId);
             }
 
-            var existingPatient = context.Patients.Find(patient.PatientId);
-            if (existingPatient == null)
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("An error occurred while retrieving the patient.", ex);
             }
-            existingPatient.BookingId = patient.BookingId;
-            existingPatient.FullName = patient.FullName;
-            existingPatient.BirthDate = patient.BirthDate;
-            existingPatient.Gender = patient.Gender;
-            existingPatient.IdentifyId = patient.IdentifyId;
-            existingPatient.SampleType = patient.SampleType;
-            existingPatient.HasTestedDna = patient.HasTestedDna;
-            existingPatient.Relationship = patient.Relationship;
+        }
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<List<Patient>> GetAllPatientsAsync()
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                return await _context.Patients.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all patient.", ex);
+            }
         }
-    }
-    public bool DeletePatientById(int id)
-    {
-        using var context = new GeneCareContext();
-        using var transaction = context.Database.BeginTransaction();
-        try
-        {
-            var patient = context.Patients.Find(id);
-            if (patient == null) return false;
-            context.Patients.Remove(patient);
 
-            context.SaveChanges();
-            transaction.Commit();
-            return true;
-        }
-        catch
+        public async Task<Patient> CreatePatientAsync(Patient patient)
         {
-            transaction.Rollback();
-            return false;
+            try
+            {
+                _context.Patients.Add(patient);
+                await _context.SaveChangesAsync();
+                return patient;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while creating the patient.", ex);
+            }
+        }
+
+        public async Task<Patient> UpdatePatientAsync(Patient patient)
+        {
+            try
+            {
+                _context.Entry(patient).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return patient;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while updating the patient.", ex);
+            }
+        }
+
+        public async Task<bool> DeletePatientAsync(int patientId)
+        {
+            try
+            {
+                var patient = await _context.Patients.FindAsync(patientId);
+                if (patient == null)
+                {
+                    return false; // Patient not found
+                }
+                _context.Patients.Remove(patient);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the patient.", ex);
+            }
         }
     }
 }
