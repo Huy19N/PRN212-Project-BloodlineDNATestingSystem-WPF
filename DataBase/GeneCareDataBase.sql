@@ -1,14 +1,14 @@
 ﻿USE master;
 GO
 
-IF EXISTS (SELECT name FROM sys.databases WHERE name = N'GeneCare')
-    DROP DATABASE GeneCare;
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'GeneCarePRN')
+    DROP DATABASE GeneCarePRN;
 GO
 
-CREATE DATABASE GeneCare;
+CREATE DATABASE GeneCarePRN;
 GO
 
-USE GeneCare;
+USE GeneCarePRN;
 GO
 
 -- Bảng Role
@@ -26,42 +26,14 @@ CREATE TABLE Users (
     [Address] NVARCHAR(500),
     Email NVARCHAR(200) NOT NULL UNIQUE,
     Phone VARCHAR(20),
-    [Password] NVARCHAR(100),
-	LastPwdChange DATETIME NOT NULL DEFAULT GETDATE()
+    [Password] NVARCHAR(100)
 );
 
--- Bảng RefreshToken
-CREATE TABLE RefreshToken (
-    RefreshTokenId INT PRIMARY KEY IDENTITY(1,1),
-    UserID INT FOREIGN KEY REFERENCES Users(UserID) ON DELETE CASCADE,
-    Token NVARCHAR(500) UNIQUE,
-    JwtId NVARCHAR(100) UNIQUE,
-    CreatedAt DATETIME NOT NULL,
-    ExpiredAt DATETIME NOT NULL,
-	Revoked BIT NOT NULL DEFAULT 0,
-	IPAddress NVARCHAR(255),
-	UserAgent NVARCHAR(MAX)
-);
 
---Bảng LogLogin
-CREATE TABLE LogLogin(
-	LogId INT PRIMARY KEY IDENTITY(1,1),
-	UserID INT FOREIGN KEY REFERENCES Users(UserID) ON DELETE CASCADE,
-	RefreshTokenId INT NULL FOREIGN KEY REFERENCES RefreshToken(RefreshTokenId),
-	Success BIT NOT NULL DEFAULT 0,
-	FailReason NVARCHAR(255),
-	IPAddress NVARCHAR(255),
-	UserAgent NVARCHAR(MAX),
-	LoginTime DATETIME NOT NULL DEFAULT GETDATE()
-);
 
---Bảng AccessTokenBlacklist
-CREATE TABLE AccessTokenBlacklist(
-	JwtId VARCHAR(50) PRIMARY KEY,
-	UserID INT FOREIGN KEY REFERENCES Users(UserID) ON DELETE CASCADE,
-	ExpireAt DATETIME NOT NULL,
-	Reason NVARCHAR(500)
-);
+
+
+
 
 -- Bảng Service
 CREATE TABLE [Service] (
@@ -119,21 +91,9 @@ CREATE TABLE Booking (
     [Date] DATETIME
 );
 
--- Bảng TestStep
-CREATE TABLE TestStep (
-    StepID INT PRIMARY KEY IDENTITY(1,1),
-    StepName NVARCHAR(100)
-);
 
--- Bảng TestProcess (dùng StepID, StatusID)
-CREATE TABLE TestProcess (
-    ProcessID INT PRIMARY KEY IDENTITY(1,1),
-    BookingID INT FOREIGN KEY REFERENCES Booking(BookingID) ON DELETE CASCADE,
-    StepID INT FOREIGN KEY REFERENCES TestStep(StepID),
-    StatusID INT FOREIGN KEY REFERENCES Status(StatusID),
-    Description NVARCHAR(MAX),
-    UpdatedAt DATETIME
-);
+
+
 
 -- Bảng Feedback
 CREATE TABLE Feedback (
@@ -173,60 +133,6 @@ CREATE TABLE Blog (
     CreatedAt DATETIME
 );
 
---Bảng PaymentMethod
-CREATE TABLE PaymentMethod(
-	PaymentMethodId BIGINT PRIMARY KEY NOT NULL,
-	MethodName NVARCHAR(10) NOT NULL,
-	IconURL VARCHAR(MAX) NOT NULL
-);
-
--- Bảng Payment
-CREATE TABLE Payment (
-    PaymentId VARCHAR(200) PRIMARY KEY NOT NULL,
-	BookingId INT NULL FOREIGN KEY REFERENCES Booking(BookingID) ON DELETE SET NULL,
-	PaymentMethodId BIGINT FOREIGN KEY REFERENCES PaymentMethod(PaymentMethodId) NOT NULL,
-	TransactionStatus NVARCHAR(50),
-	ResponseCode NVARCHAR(50),
-	TransactionNo NVARCHAR(255),
-	BankTranNo NVARCHAR(50),
-	Amount DECIMAL NOT NULL,
-	Currency NVARCHAR(50) NOT NULL,
-	PaymentDate DATETIME NOT NULL,
-	OrderInfo NVARCHAR(256),
-	SecureHash NVARCHAR(MAX),
-	RawData NVARCHAR(MAX),
-	HavePaid BIT NOT NULL
-);
-
--- Bảng PaymentIPNLog
-CREATE TABLE PaymentIPNLog(
-	IPNLogId BIGINT PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	PaymentId VARCHAR(200) FOREIGN KEY REFERENCES Payment(PaymentId) NOT NULL,
-	RawData NVARCHAR(MAX) NOT NULL,
-	ReceivedAt DateTime NOT NULL,
-	TransactionStatus NVARCHAR(50) NOT NULL,
-	ResponseCode NVARCHAR(50) NOT NULL
-);
-
--- Bảng PaymentReturnLog
-CREATE TABLE PaymentReturnLog(
-	ReturnLogId	 BIGINT PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	PaymentId VARCHAR(200) FOREIGN KEY REFERENCES Payment(PaymentId) NOT NULL,
-	RawData NVARCHAR(MAX) NOT NULL,
-	ReturnedAt DateTime NOT NULL,
-	TransactionStatus NVARCHAR(50) NOT NULL,
-	ResponseCode NVARCHAR(50) NOT NULL
-);
-
--- Bảng VerifyEmail
-CREATE TABLE VerifyEmail (
-	[Key] NVARCHAR(255) NOT NULL PRIMARY KEY,
-    Email NVARCHAR(200) NOT NULL,
-	IsResetPwd BIT NOT NULL,
-    CreatedAt DATETIME NOT NULL,
-    ExpiredAt DATETIME NOT NULL,
-    
-);
 
 
 -------------------------------------------INSERT DATA---------------------------------------------------------------
@@ -236,12 +142,12 @@ INSERT INTO Role (RoleID, RoleName) VALUES
 (3, N'Manage'),
 (4, N'Admin');
 go
-INSERT INTO Users (RoleID,FullName,IdentifyID,Address,Email,Phone,Password, LastPwdChange)
+INSERT INTO Users (RoleID,FullName,IdentifyID,Address,Email,Phone,Password)
 VALUES 
-(1, N'ThuanCustomer','090909',N'HCM',N't@cus','0909090','123', DATEADD(day, -7, GETDATE())),
-(2, N'ThuanStaff','090909',N'HCM',N't@sta','0909090','123', DATEADD(day, -7, GETDATE())),
-(3, N'ThuanManager','090909',N'HCM',N't@mana','0909090','123', DATEADD(day, -7, GETDATE())),
-(4, N'ThuanAdmin','090909',N'HCM',N't@ad','0909090','123', DATEADD(day, -7, GETDATE()));
+(1, N'ThuanCustomer','090909',N'HCM',N't@cus','0909090','123'),
+(2, N'ThuanStaff','090909',N'HCM',N't@sta','0909090','123'),
+(3, N'ThuanManager','090909',N'HCM',N't@mana','0909090','123'),
+(4, N'ThuanAdmin','090909',N'HCM',N't@ad','0909090','123');
 go
 INSERT INTO Service (ServiceName ,ServiceType)
 VALUES 
@@ -282,12 +188,10 @@ VALUES
 go
 INSERT INTO Status(StatusName)
 VALUES
-(N'Chưa thanh toán'),
 (N'Chưa thực hiện'),
 (N'Đang thực hiện'),
 (N'Hoàn thành'),
-(N'Đã hủy'),
-(N'Đang chờ duyệt');
+(N'Đã hủy');
 go
 INSERT INTO Samples(SampleName)
  VALUES
@@ -296,21 +200,4 @@ INSERT INTO Samples(SampleName)
  (N'Tóc'),
  (N'Niêm mạc miệng');
 go
-INSERT INTO TestStep(StepName)
-  VALUES
-  (N'Chưa thanh toán'),
-  (N'Đã thanh toán'),
-  (N'Xác nhận'),
-  (N'Đang gửi bộ kit'),
-  (N'Đã nhận bộ kit'),
-  (N'Đã gửi mẫu'),
-  (N'Đang chờ lấy mẫu'),
-  (N'Đã thu mẫu '),
-  (N'Đang xét nghiệm'),
-  (N'Trả kết quả xét nghiệm');
-go
-INSERT INTO PaymentMethod(PaymentMethodId,MethodName, IconURL)
-VALUES
-(1, N'VNPAY', 'https://cdn.brandfetch.io/idV02t6WJs/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B'),
-(2, N'MOMO', 'https://developers.momo.vn/v3/img/logo.svg');
-go
+
