@@ -1,95 +1,84 @@
-﻿using BusinessObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects;
 
 namespace DataAccessLayer
 {
     public class BookingDAO
     {
-        private readonly GeneCareContext _context;
-        public BookingDAO()
-        {
-            _context = new GeneCareContext();
-        }
-        public BookingDAO(GeneCareContext context)
-        {
-            _context = context;
-        }
-        
-        public async Task<Booking?> GetBookingByIdAsync(int bookingId)
-        {
-            try
-            {
-                return await _context.Bookings.FindAsync(bookingId);
-            }
+        GeneCarePrnContext context = new GeneCarePrnContext();
 
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving the booking.", ex);
-            }
+        public List<Booking> GetAllBookings()
+        {
+            return context.Bookings.ToList();
         }
 
-        public async Task<List<Booking>> GetAllBookingsAsync()
+        public Booking GetBookingById(int id)
         {
-            try
-            {
-                return await _context.Bookings.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving all booking.", ex);
-            }
+            return context.Bookings.FirstOrDefault(b => b.BookingId == id);
         }
 
-        public async Task<Booking> CreateBookingAsync(Booking booking)
+        public bool AddBooking(Booking booking)
         {
-            try
-            {
-                _context.Bookings.Add(booking);
-                await _context.SaveChangesAsync();
-                return booking;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while creating the booking.", ex);
-            }
+            context.Bookings.Add(booking);
+            return context.SaveChanges() > 0;
         }
 
-        public async Task<Booking> UpdateBookingAsync(Booking booking)
+        public bool DeleteBooking(Booking booking)
         {
-            try
-            {
-                _context.Entry(booking).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return booking;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the booking.", ex);
-            }
+            context.Bookings.Remove(booking);
+            return context.SaveChanges() > 0;
         }
 
-        public async Task<bool> DeleteBookingAsync(int bookingId)
+        public bool UpdateBooking(Booking booking)
         {
-            try
-            {
-                var booking = await _context.Bookings.FindAsync(bookingId);
-                if (booking == null)
-                {
-                    return false; // Booking not found
-                }
-                _context.Bookings.Remove(booking);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while deleting the booking.", ex);
-            }
+            context.Bookings.Update(booking);
+            return context.SaveChanges() > 0;
+        }
+
+        public List<Booking> GetBookingsByUserID(int userId)
+        {
+            return context.Bookings
+                .Where(b => b.UserId == userId)
+                .ToList();
+        }
+
+        public List<Booking> GetBookingsByDurationId(int durationId)
+        {
+            return context.Bookings
+                .Where(b => b.DurationId == durationId)
+                .ToList();
+        }
+
+        public List<Booking> GetBookingsByServiceId(int serviceId)
+        {
+            return context.Bookings
+                .Where(b => b.ServiceId == serviceId)
+                .ToList();
+        }
+
+        public List<Booking> GetBookingsByMethodId(int methodId)
+        {
+            return context.Bookings
+                .Where(b => b.MethodId == methodId)
+                .ToList();
+        }
+
+        public List<Booking> GetBookingsByResultId(int resultId)
+        {
+            return context.Bookings
+                .Where(b => b.ResultId == resultId)
+                .ToList();
+        }
+
+        public List<Booking> GetBookingsByStatusId(int statusId)
+        {
+            return context.Bookings
+                .Where(b => b.StatusId == statusId)
+                .ToList();
         }
     }
 }

@@ -1,95 +1,42 @@
-﻿using BusinessObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects;
 
 namespace DataAccessLayer
 {
     public class SampleDAO
     {
-        private readonly GeneCareContext _context;
-        public SampleDAO()
-        {
-            _context = new GeneCareContext();
-        }
-        public SampleDAO(GeneCareContext context)
-        {
-            _context = context;
-        }
-        
-        public async Task<Sample?> GetSampleByIdAsync(int sampleId)
-        {
-            try
+        GeneCarePrnContext context = new GeneCarePrnContext();
+            public List<Sample> GetAllSamples()
             {
-                return await _context.Samples.FindAsync(sampleId);
+                return context.Samples.ToList();
             }
-
-            catch (Exception ex)
+    
+            public Sample GetSampleById(int id)
             {
-                throw new Exception("An error occurred while retrieving the sample.", ex);
+                return context.Samples.FirstOrDefault(s => s.SampleId == id);
             }
-        }
-
-        public async Task<List<Sample>> GetAllSamplesAsync()
-        {
-            try
+    
+            public bool AddSample(Sample sample)
             {
-                return await _context.Samples.ToListAsync();
+                context.Samples.Add(sample);
+                return context.SaveChanges() > 0;
             }
-            catch (Exception ex)
+    
+            public bool DeleteSample(Sample sample)
             {
-                throw new Exception("An error occurred while retrieving all sample.", ex);
+                context.Samples.Remove(sample);
+                return context.SaveChanges() > 0;
             }
-        }
-
-        public async Task<Sample> CreateSampleAsync(Sample sample)
-        {
-            try
+    
+            public bool UpdateSample(Sample sample)
             {
-                _context.Samples.Add(sample);
-                await _context.SaveChangesAsync();
-                return sample;
+                context.Samples.Update(sample);
+                return context.SaveChanges() > 0;
             }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while creating the sample.", ex);
-            }
-        }
-
-        public async Task<Sample> UpdateSampleAsync(Sample sample)
-        {
-            try
-            {
-                _context.Entry(sample).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return sample;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the sample.", ex);
-            }
-        }
-
-        public async Task<bool> DeleteSampleAsync(int sampleId)
-        {
-            try
-            {
-                var sample = await _context.Samples.FindAsync(sampleId);
-                if (sample == null)
-                {
-                    return false; // Sample not found
-                }
-                _context.Samples.Remove(sample);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while deleting the sample.", ex);
-            }
-        }
+    
     }
 }

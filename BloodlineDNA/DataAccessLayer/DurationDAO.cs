@@ -1,95 +1,37 @@
-﻿using BusinessObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects;
 
 namespace DataAccessLayer
 {
     public class DurationDAO
     {
-        private readonly GeneCareContext _context;
-        public DurationDAO()
+        GeneCarePrnContext context = new GeneCarePrnContext();
+        public List<Duration> GetAllDurations()
         {
-            _context = new GeneCareContext();
+            return context.Durations.ToList();
         }
-        public DurationDAO(GeneCareContext context)
+        public Duration GetDurationById(int id)
         {
-            _context = context;
+            return context.Durations.FirstOrDefault(d => d.DurationId == id);
         }
-        
-        public async Task<Duration?> GetDurationByIdAsync(int durationId)
+        public bool AddDuration(Duration duration)
         {
-            try
-            {
-                return await _context.Durations.FindAsync(durationId);
-            }
-
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving the duration.", ex);
-            }
+            context.Durations.Add(duration);
+            return context.SaveChanges() > 0;
         }
-
-        public async Task<List<Duration>> GetAllDurationsAsync()
+        public bool DeleteDuration(Duration duration)
         {
-            try
-            {
-                return await _context.Durations.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving all duration.", ex);
-            }
+            context.Durations.Remove(duration);
+            return context.SaveChanges() > 0;
         }
-
-        public async Task<Duration> CreateDurationAsync(Duration duration)
+        public bool UpdateDuration(Duration duration)
         {
-            try
-            {
-                _context.Durations.Add(duration);
-                await _context.SaveChangesAsync();
-                return duration;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while creating the duration.", ex);
-            }
-        }
-
-        public async Task<Duration> UpdateDurationAsync(Duration duration)
-        {
-            try
-            {
-                _context.Entry(duration).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return duration;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the duration.", ex);
-            }
-        }
-
-        public async Task<bool> DeleteDurationAsync(int durationId)
-        {
-            try
-            {
-                var duration = await _context.Durations.FindAsync(durationId);
-                if (duration == null)
-                {
-                    return false; // Duration not found
-                }
-                _context.Durations.Remove(duration);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while deleting the duration.", ex);
-            }
+            context.Durations.Update(duration);
+            return context.SaveChanges() > 0;
         }
     }
 }

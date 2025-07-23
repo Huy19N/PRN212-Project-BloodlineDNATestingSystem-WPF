@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BusinessObjects;
+using Services.Interface;
+using Services;
+
 
 namespace WpfApp
 {
@@ -19,9 +23,12 @@ namespace WpfApp
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private readonly UserService userService = new();
         public LoginWindow()
         {
-            InitializeComponent();
+                InitializeComponent();
+            
+            
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -38,10 +45,7 @@ namespace WpfApp
 
         }
 
-        private void btClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        
 
         private void btnMaximize_Click(object sender, RoutedEventArgs e)
         {
@@ -52,6 +56,40 @@ namespace WpfApp
             }
             WindowState = WindowState.Maximized;
             
+        }
+
+        private void btLogin_Click(object sender, RoutedEventArgs e)
+        {
+            var user = userService.Login(txtUserName.Text, txtPassword.Password);
+
+            if (user == null)
+            {
+                MessageBox.Show("Tài Khoản này Chưa Tồn Tại!", "Đăng Nhập Thất Bại", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if(user.RoleId != 1)
+            {
+                AdminWindow adminWindow = new AdminWindow();
+                adminWindow.Show();
+                this.Close();
+            }
+            else if(user.RoleId == 1)
+            {
+                CustomerWindow cw = new CustomerWindow();
+                cw.Show();
+                this.Close();
+            }
+        }
+
+        private void btClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            RegisterWindow rw = new RegisterWindow();
+            rw.Show();
+            this.Close();
         }
     }
 }

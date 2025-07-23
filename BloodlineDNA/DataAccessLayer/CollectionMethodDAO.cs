@@ -1,95 +1,44 @@
-﻿using BusinessObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects;
 
 namespace DataAccessLayer
 {
     public class CollectionMethodDAO
     {
-        private readonly GeneCareContext _context;
-        public CollectionMethodDAO()
+        GeneCarePrnContext context = new GeneCarePrnContext();
+
+        public List<CollectionMethod> GetCollectionAll()
         {
-            _context = new GeneCareContext();
+            return context.CollectionMethods.ToList();
         }
-        public CollectionMethodDAO(GeneCareContext context)
+
+        public CollectionMethod GetCollectionMethodById(int id)
         {
-            _context = context;
+            return context.CollectionMethods.FirstOrDefault(c => c.MethodId == id);
         }
+
+        public bool AddCollectionMethod(CollectionMethod collectionMethod)
+        {
+            context.CollectionMethods.Add(collectionMethod);
+            return context.SaveChanges() > 0;
+        }
+
+        public bool DeleteCollectionMethod(CollectionMethod collectionMethod)
+        {
+            context.CollectionMethods.Remove(collectionMethod);
+            return context.SaveChanges() > 0;
+        }
+
+        public bool UpdateCollectionMethod(CollectionMethod collectionMethod)
+        {
+            context.CollectionMethods.Update(collectionMethod);
+            return context.SaveChanges() > 0;
+        }
+
         
-        public async Task<CollectionMethod?> GetCollectionMethodByIdAsync(int methodId)
-        {
-            try
-            {
-                return await _context.CollectionMethods.FindAsync(methodId);
-            }
-
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving the collection method.", ex);
-            }
-        }
-
-        public async Task<List<CollectionMethod>> GetAllCollectionMethodsAsync()
-        {
-            try
-            {
-                return await _context.CollectionMethods.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving all collection method.", ex);
-            }
-        }
-
-        public async Task<CollectionMethod> CreateCollectionMethodAsync(CollectionMethod collectionMethod)
-        {
-            try
-            {
-                _context.CollectionMethods.Add(collectionMethod);
-                await _context.SaveChangesAsync();
-                return collectionMethod;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while creating the collection method.", ex);
-            }
-        }
-
-        public async Task<CollectionMethod> UpdateCollectionMethodAsync(CollectionMethod collectionMethod)
-        {
-            try
-            {
-                _context.Entry(collectionMethod).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return collectionMethod;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the collection method.", ex);
-            }
-        }
-
-        public async Task<bool> DeleteCollectionMethodAsync(int methodId)
-        {
-            try
-            {
-                var collectionMethod = await _context.CollectionMethods.FindAsync(methodId);
-                if (collectionMethod == null)
-                {
-                    return false; // Collection method not found
-                }
-                _context.CollectionMethods.Remove(collectionMethod);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while deleting the collection method.", ex);
-            }
-        }
     }
 }

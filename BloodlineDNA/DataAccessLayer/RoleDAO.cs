@@ -1,95 +1,42 @@
-﻿using BusinessObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects;
 
 namespace DataAccessLayer
 {
     public class RoleDAO
     {
-        private readonly GeneCareContext _context;
-        public RoleDAO()
-        {
-            _context = new GeneCareContext();
-        }
-        public RoleDAO(GeneCareContext context)
-        {
-            _context = context;
-        }
-        
-        public async Task<Role?> GetRoleByIdAsync(int roleId)
-        {
-            try
-            {
-                return await _context.Roles.FindAsync(roleId);
-            }
+        GeneCarePrnContext context = new GeneCarePrnContext();
 
-            catch (Exception ex)
+           public List<Role> GetAllRoles()
             {
-                throw new Exception("An error occurred while retrieving the role.", ex);
+                return context.Roles.ToList();
             }
-        }
-
-        public async Task<List<Role>> GetAllRolesAsync()
-        {
-            try
+    
+            public Role GetRoleById(int id)
             {
-                return await _context.Roles.ToListAsync();
+                return context.Roles.FirstOrDefault(r => r.RoleId == id);
             }
-            catch (Exception ex)
+    
+            public bool AddRole(Role role)
             {
-                throw new Exception("An error occurred while retrieving all role.", ex);
+                context.Roles.Add(role);
+                return context.SaveChanges() > 0;
             }
-        }
-
-        public async Task<Role> CreateRoleAsync(Role role)
-        {
-            try
+    
+            public bool DeleteRole(Role role)
             {
-                _context.Roles.Add(role);
-                await _context.SaveChangesAsync();
-                return role;
+                context.Roles.Remove(role);
+                return context.SaveChanges() > 0;
             }
-            catch (Exception ex)
+    
+            public bool UpdateRole(Role role)
             {
-                throw new Exception("An error occurred while creating the role.", ex);
-            }
-        }
-
-        public async Task<Role> UpdateRoleAsync(Role role)
-        {
-            try
-            {
-                _context.Entry(role).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return role;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the role.", ex);
-            }
-        }
-
-        public async Task<bool> DeleteRoleAsync(int roleId)
-        {
-            try
-            {
-                var role = await _context.Roles.FindAsync(roleId);
-                if (role == null)
-                {
-                    return false; // Role not found
-                }
-                _context.Roles.Remove(role);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while deleting the role.", ex);
-            }
+                context.Roles.Update(role);
+                return context.SaveChanges() > 0;
         }
     }
 }

@@ -1,95 +1,51 @@
-﻿using BusinessObjects;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessObjects;
 
 namespace DataAccessLayer
 {
     public class PatientDAO
     {
-        private readonly GeneCareContext _context;
-        public PatientDAO()
+        GeneCarePrnContext context = new GeneCarePrnContext();
+        public List<Patient> GetAllPatients()
         {
-            _context = new GeneCareContext();
+            return context.Patients.ToList();
         }
-        public PatientDAO(GeneCareContext context)
+        public Patient GetPatientById(int id)
         {
-            _context = context;
+            return context.Patients.FirstOrDefault(p => p.PatientId == id);
         }
-        
-        public async Task<Patient?> GetPatientByIdAsync(int patientId)
+        public bool AddPatient(Patient patient)
         {
-            try
-            {
-                return await _context.Patients.FindAsync(patientId);
-            }
-
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving the patient.", ex);
-            }
+            context.Patients.Add(patient);
+            return context.SaveChanges() > 0;
         }
-
-        public async Task<List<Patient>> GetAllPatientsAsync()
+        public bool DeletePatient(Patient patient)
         {
-            try
-            {
-                return await _context.Patients.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while retrieving all patient.", ex);
-            }
+            context.Patients.Remove(patient);
+            return context.SaveChanges() > 0;
+        }
+        public bool UpdatePatient(Patient patient)
+        {
+            context.Patients.Update(patient);
+            return context.SaveChanges() > 0;
         }
 
-        public async Task<Patient> CreatePatientAsync(Patient patient)
+        public List<Patient> GetPatientsByBookingId(int bookingId)
         {
-            try
-            {
-                _context.Patients.Add(patient);
-                await _context.SaveChangesAsync();
-                return patient;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while creating the patient.", ex);
-            }
+            return context.Patients
+                .Where(b => b.BookingId == bookingId)
+                .ToList();
         }
 
-        public async Task<Patient> UpdatePatientAsync(Patient patient)
+        public List<Patient> GetPatientsBySampleId(int sampleId)
         {
-            try
-            {
-                _context.Entry(patient).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return patient;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the patient.", ex);
-            }
-        }
-
-        public async Task<bool> DeletePatientAsync(int patientId)
-        {
-            try
-            {
-                var patient = await _context.Patients.FindAsync(patientId);
-                if (patient == null)
-                {
-                    return false; // Patient not found
-                }
-                _context.Patients.Remove(patient);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while deleting the patient.", ex);
-            }
+            return context.Patients
+                .Where(p => p.SampleId == sampleId)
+                .ToList();
         }
     }
 }
