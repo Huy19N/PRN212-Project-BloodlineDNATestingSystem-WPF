@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using BusinessObjects;
 using LiveCharts;
 using LiveCharts.Wpf;
+using Microsoft.VisualBasic.ApplicationServices;
 using Services;
 
 namespace WpfApp.Views
@@ -32,32 +33,46 @@ namespace WpfApp.Views
         {
             InitializeComponent();
 
-            TotalUsers = userService.GetAllUsers().Count;
-            TotalBookings = bookingService.GetAllBookings().Count;
+            var users = userService.GetAllUsers();
+            var bookings = bookingService.GetAllBookings();
 
-            PieSeries = new SeriesCollection
+            TotalUsers = users.Count;
+            TotalBookings = bookings.Count;
+
+            var roleCounts = users.GroupBy(u => u.RoleId)
+                                  .ToDictionary(g => g.Key, g => g.Count());
+
+            string GetRoleName(int roleId) => roleId switch
             {
-                new PieSeries
-                {
-                    Title = "DNA Test",
-                    Values = new ChartValues<double> { 120 },
-                    Fill = new SolidColorBrush(Color.FromRgb(0, 255, 255))
-                },
-                new PieSeries
-                {
-                    Title = "Paternity",
-                    Values = new ChartValues<double> { 80 },
-                    Fill = new SolidColorBrush(Color.FromRgb(255, 165, 0))
-                },
-                new PieSeries
-                {
-                    Title = "Other",
-                    Values = new ChartValues<double> { 50 },
-                    Fill = new SolidColorBrush(Color.FromRgb(255, 99, 132))
-                }
+                1 => "Customer",
+                2 => "Staff",
+                3 => "Manager",
+                4 => "Admin"
             };
 
+            PieSeries = new SeriesCollection();
+            
+            foreach(var entry in roleCounts)
+            {
+                PieSeries.Add(new PieSeries
+                {
+                    Title = GetRoleName(entry.Key),
+                    Values = new ChartValues<double> { entry.Value },
+                    Fill = new SolidColorBrush(GetRoleColor(entry.Key))
+                });
+            }
+
             DataContext = this;
+        }
+        private Color GetRoleColor(int roleId)
+        {
+            return roleId switch
+            {
+                1 => Color.FromRgb(0, 255, 255),   // Customer - Cyan
+                2 => Color.FromRgb(255, 165, 0),   // Staff - Orange
+                3 => Color.FromRgb(144, 238, 144), // Manager - LightGreen
+                4 => Color.FromRgb(255, 99, 132),  // Admin - Pink
+            };
         }
 
 
