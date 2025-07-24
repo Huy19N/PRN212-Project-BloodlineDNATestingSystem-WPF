@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp.Views;
 
 namespace WpfApp
 {
@@ -56,6 +57,68 @@ namespace WpfApp
             }
             WindowState = WindowState.Maximized;
 
+        }
+
+        private void btnDashboard_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainContent.Content = new DashboardControll();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Lỗi xuất dữ liệu bảng thông kê: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //MainContent.Content = new CustomerControll();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Lỗi xuất dữ liệu Khách Hàng: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnBooking_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //MainContent.Content = new BookingControll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi xuất dữ liệu đặt Chỗ: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnBlog_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //MainContent.Content = new BlogControll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi xuất dữ liệu Blog: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                LoginWindow lw = new LoginWindow();
+                lw.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi Đăng Xuất: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

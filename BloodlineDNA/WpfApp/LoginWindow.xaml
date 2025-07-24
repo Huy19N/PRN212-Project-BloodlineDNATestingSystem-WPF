@@ -111,7 +111,7 @@
                                TextAlignment="Center"
                                Margin="0,5,0,0"/>
 
-                    <TextBlock Text="UserName"
+                    <TextBlock Text="Email"
                                FontSize="12"
                                FontFamily="{StaticResource Montserrat}"
                                Foreground="Gray"

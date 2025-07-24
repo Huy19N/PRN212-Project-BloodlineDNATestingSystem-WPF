@@ -58,8 +58,8 @@
                     <!-- Menu -->
                     <!-- Dashboard -->
                     <StackPanel>
-                        <RadioButton Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource color1}">
+                        <RadioButton x:Name="btnDashboard" Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color1}" Click="btnDashboard_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
@@ -68,8 +68,8 @@
                     </StackPanel>
                     <!-- Customer -->
                     <StackPanel>
-                        <RadioButton Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource color2}">
+                        <RadioButton x:Name="btnCustomer" Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color2}" Click="btnCustomer_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Users" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Customers" Style="{StaticResource menuButtonText}"/>
@@ -78,21 +78,33 @@
                     </StackPanel>
                     <!-- Booking -->
                     <StackPanel>
-                        <RadioButton Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource color3}">
+                        <RadioButton x:Name="btnBooking" Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color3}" Click="btnBooking_Click"
+                                     >
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="CalendarCheck" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Booking" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </StackPanel>
-                    <!-- Payment -->
+                    <!-- Blog -->
                     <StackPanel>
-                        <RadioButton Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource color4}">
+                        <RadioButton x:Name="btnBlog" Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color4}" Click="btnBlog_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="MoneyBill" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Payment" Style="{StaticResource menuButtonText}"/>
+                                <TextBlock Text="Blog" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <!-- Logout -->
+                    <StackPanel>
+                        <RadioButton x:Name="btnLogout" Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color4}" Click="btnLogout_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="MoneyBill" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Logout" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
                     </StackPanel>
@@ -163,6 +175,7 @@
                         
                         
                     </StackPanel>
+                    <Frame x:Name="MainContent" Grid.Row="2" NavigationUIVisibility="Hidden"/>
                 </Grid>
                 
             </Border>
