@@ -42,7 +42,19 @@
     <SolidColorBrush x:Key="panelOverColor" Color="#3A2A7D"/>
     <SolidColorBrush x:Key="panelActiveColor" Color="#E0E1F1"/>
     
-    <!-- Color Buton -->
-    
+    <!-- Color Button -->
+    <SolidColorBrush x:Key="buttonColor1" Color="#773DFF"/>
+    <SolidColorBrush x:Key="buttonHoverColor1" Color="#836EFB"/>
+    <SolidColorBrush x:Key="buttonColor2" Color="#07F3C0"/>
+    <SolidColorBrush x:Key="buttonHoverColor2" Color="#97F3D0"/>
+    <SolidColorBrush x:Key="buttonColor3" Color="#FFC047"/>
+    <SolidColorBrush x:Key="buttonHoverColor3" Color="#FFF087"/>
+    <SolidColorBrush x:Key="buttonColor4" Color="#FB639B"/>
+    <SolidColorBrush x:Key="buttonHoverColor4" Color="#FF939B"/>
+    <SolidColorBrush x:Key="buttonColor5" Color="#4ADAEC"/>
+    <SolidColorBrush x:Key="buttonHoverColor5" Color="#4AFAEC"/>
+    <SolidColorBrush x:Key="buttonColor6" Color="#E285DE"/>
+    <SolidColorBrush x:Key="buttonHoverColor6" Color="#F295EE"/>
+
     <!-- Color TextBox -->
 </ResourceDictionary>

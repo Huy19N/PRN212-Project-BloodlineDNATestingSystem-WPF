@@ -120,5 +120,11 @@ namespace WpfApp
                 MessageBox.Show($"Lỗi Đăng Xuất: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void btnBooking_Checked(object sender, RoutedEventArgs e)
+        {
+            var view = new BookingView();
+            MainContent.Content = view;
+        }
     }
 }

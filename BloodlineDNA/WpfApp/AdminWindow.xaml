@@ -58,7 +58,7 @@
                     <!-- Menu -->
                     <!-- Dashboard -->
                     <StackPanel>
-                        <RadioButton x:Name="btnDashboard" Style="{StaticResource menuButton}"
+                        <RadioButton x:Name="btnDashboard" GroupName="nav" Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color1}" Click="btnDashboard_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
@@ -68,7 +68,7 @@
                     </StackPanel>
                     <!-- Customer -->
                     <StackPanel>
-                        <RadioButton x:Name="btnCustomer" Style="{StaticResource menuButton}"
+                        <RadioButton x:Name="btnCustomer" GroupName="nav"  Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color2}" Click="btnCustomer_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Users" Style="{StaticResource menuButtonIcon}"/>
@@ -78,8 +78,8 @@
                     </StackPanel>
                     <!-- Booking -->
                     <StackPanel>
-                        <RadioButton x:Name="btnBooking" Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource color3}" Click="btnBooking_Click"
+                        <RadioButton x:Name="btnBooking" GroupName="nav" Style="{StaticResource menuButton}"
+                                     Tag="{StaticResource color3}" Click="btnBooking_Click" Checked="btnBooking_Checked"
                                      >
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="CalendarCheck" Style="{StaticResource menuButtonIcon}"/>
@@ -89,7 +89,7 @@
                     </StackPanel>
                     <!-- Blog -->
                     <StackPanel>
-                        <RadioButton x:Name="btnBlog" Style="{StaticResource menuButton}"
+                        <RadioButton x:Name="btnBlog" GroupName="nav" Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color4}" Click="btnBlog_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="MoneyBill" Style="{StaticResource menuButtonIcon}"/>
@@ -100,7 +100,7 @@
 
                     <!-- Logout -->
                     <StackPanel>
-                        <RadioButton x:Name="btnLogout" Style="{StaticResource menuButton}"
+                        <RadioButton x:Name="btnLogout" GroupName="nav" Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color4}" Click="btnLogout_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="MoneyBill" Style="{StaticResource menuButtonIcon}"/>
@@ -175,7 +175,7 @@
                         
                         
                     </StackPanel>
-                    <Frame x:Name="MainContent" Grid.Row="2" NavigationUIVisibility="Hidden"/>
+                    <ContentControl x:Name="MainContent" Grid.Row="2"/>
                 </Grid>
                 
             </Border>
