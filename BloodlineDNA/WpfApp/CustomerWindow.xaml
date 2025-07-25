@@ -34,8 +34,12 @@
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                         <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0"/>
                         <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
+                        
                     </LinearGradientBrush>
                 </Border.Background>
+                
+                <!--TabBar-->
+                
             </Border>
 
             <!-- Main -->

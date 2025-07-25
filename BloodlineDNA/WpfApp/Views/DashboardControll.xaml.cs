@@ -44,10 +44,10 @@ namespace WpfApp.Views
 
             string GetRoleName(int roleId) => roleId switch
             {
-                1 => "Customer",
-                2 => "Staff",
-                3 => "Manager",
-                4 => "Admin"
+                1 => "Khách hàng",
+                2 => "Nhân Viên",
+                3 => "Quản Lý",
+                4 => "Quản Trị Viên"
             };
 
             PieSeries = new SeriesCollection();
