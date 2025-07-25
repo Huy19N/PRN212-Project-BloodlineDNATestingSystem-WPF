@@ -27,6 +27,10 @@ namespace Services
             return bookingRepository.DeleteBooking(booking);
         }
 
+        public async Task<ReturnData> GetAndSearchBooking(string key, int numberRecordsEachPage, int currentPage)
+        {
+            return await bookingRepository.GetAndSearchBooking(key, numberRecordsEachPage, currentPage);
+        }
         public List<Booking> GetAllBookings()
         {
             return bookingRepository.GetAllBookings();

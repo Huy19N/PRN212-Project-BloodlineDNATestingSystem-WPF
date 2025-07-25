@@ -31,6 +31,11 @@ namespace Repositories
             return BookingDAO.GetBookingById(id);
         }
 
+        public async Task<ReturnData> GetAndSearchBooking(string key, int numberRecordsEachPage, int currentPage)
+        {
+            return await BookingDAO.GetAndSearchBooking(key, numberRecordsEachPage, currentPage);
+        }
+
         public List<Booking> GetBookingsByDurationId(int durationId)
         {
             return BookingDAO.GetBookingsByDurationId(durationId);

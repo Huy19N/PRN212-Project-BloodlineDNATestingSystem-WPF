@@ -15,9 +15,6 @@ using WpfApp.Views;
 
 namespace WpfApp
 {
-    /// <summary>
-    /// Interaction logic for AdminWindow.xaml
-    /// </summary>
     public partial class AdminWindow : Window
     {
         public AdminWindow()
@@ -47,15 +44,28 @@ namespace WpfApp
         {
             WindowState = WindowState.Minimized;
         }
-
+        private bool isMaximized = false;
+        private Rect previousRect;
         private void btnMaximize_Click(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Maximized)
+            if (!isMaximized)
             {
-                WindowState = WindowState.Normal;
-                return;
+                previousRect = new Rect(Left, Top, Width, Height);
+                var workArea = SystemParameters.WorkArea;
+                Left = workArea.Left;
+                Top = workArea.Top;
+                Width = workArea.Width;
+                Height = workArea.Height;
+                isMaximized = true;
             }
-            WindowState = WindowState.Maximized;
+            else
+            {
+                Left = previousRect.Left;
+                Top = previousRect.Top;
+                Width = previousRect.Width;
+                Height = previousRect.Height;
+                isMaximized = false;
+            }
 
         }
 
@@ -63,7 +73,7 @@ namespace WpfApp
         {
             try
             {
-                MainContent.Content = new DashboardControll();
+                
             }
             catch(Exception ex)
             {
@@ -80,18 +90,6 @@ namespace WpfApp
             catch(Exception ex)
             {
                 MessageBox.Show($"Lỗi xuất dữ liệu Khách Hàng: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btnBooking_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //MainContent.Content = new BookingControll();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi xuất dữ liệu đặt Chỗ: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -123,7 +121,7 @@ namespace WpfApp
 
         private void btnBooking_Checked(object sender, RoutedEventArgs e)
         {
-            var view = new BookingView();
+            var view = new Views.AdminBookingView();
             MainContent.Content = view;
         }
     }

@@ -10,7 +10,17 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
+        ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen">
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            CaptionHeight="0"
+            ResizeBorderThickness="6"
+            GlassFrameThickness="0"
+            UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+    
+    
 
     <Border CornerRadius="10"
             BorderThickness="1">
@@ -25,8 +35,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <!-- Nav Bar-->
-                <ColumnDefinition Width="250"/>
-                
+                <ColumnDefinition Width="0.4*"/>
                 <ColumnDefinition Width="*"/>
                 
             </Grid.ColumnDefinitions>
@@ -79,7 +88,7 @@
                     <!-- Booking -->
                     <StackPanel>
                         <RadioButton x:Name="btnBooking" GroupName="nav" Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource color3}" Click="btnBooking_Click" Checked="btnBooking_Checked"
+                                     Tag="{StaticResource color3}" Checked="btnBooking_Checked"
                                      >
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="CalendarCheck" Style="{StaticResource menuButtonIcon}"/>

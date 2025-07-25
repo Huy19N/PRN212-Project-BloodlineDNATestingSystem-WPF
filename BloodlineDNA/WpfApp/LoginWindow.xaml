@@ -59,17 +59,6 @@
                            VerticalAlignment="Center"
                            Margin="10, 0, 0, 0"/>
 
-                <Button x:Name="btnMaximize"
-                                BorderThickness="0"
-                                Grid.Column="1"
-                                Click="btnMaximize_Click"
-                                Tag="{StaticResource maximizeWindowControlColor}"
-                                Style="{StaticResource windowControlButton}">
-                    <fa:IconImage Icon="WindowMaximize"
-                                  Height="10"
-                                  Foreground="White"/>
-                </Button>
-
                 <Button x:Name="btnMinimize"
                         BorderThickness="0"
                         Grid.Column="2"

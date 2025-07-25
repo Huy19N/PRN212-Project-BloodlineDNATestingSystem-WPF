@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
@@ -37,6 +38,46 @@ namespace DataAccessLayer
         {
             context.Bookings.Update(booking);
             return context.SaveChanges() > 0;
+        }
+        public async Task<ReturnData> GetAndSearchBooking(string key,int numberRecordsEachPage, int currentPage)
+        {
+            try
+            {
+
+                var query = context.Bookings
+                            .Include(b => b.User)
+                            .Include(b => b.Duration)
+                            .Include(b => b.Service)
+                            .Include(b => b.Method)
+                            .Include(b => b.Result)
+                            .Include(b => b.Status)
+                            .Where(b => b.BookingId.ToString().Contains(key) ||
+                                        b.Duration.DurationName.Contains(key) ||
+                                        b.Service.ServiceName.Contains(key) ||
+                                        b.Method.MethodName.Contains(key) ||
+                                        b.Result.ResultSummary.Contains(key) ||
+                                        b.Status.StatusName.Contains(key));
+
+                int totalRecords = await query.CountAsync();
+
+                int maxPage = (int)Math.Ceiling((double)totalRecords / numberRecordsEachPage);
+
+                var pagedData = await query.Skip((currentPage - 1) * numberRecordsEachPage)
+                                           .Take(numberRecordsEachPage)
+                                           .ToListAsync();
+                return new ReturnData()
+                {
+                    currentPage = currentPage,
+                    numberRecords = totalRecords,
+                    maxPage = maxPage,
+                    Data = pagedData
+                };
+            }
+            catch (Exception ex) 
+            {
+                throw new Exception(ex.InnerException?.Message ?? ex.Message);
+
+            }
         }
 
         public List<Booking> GetBookingsByUserID(int userId)

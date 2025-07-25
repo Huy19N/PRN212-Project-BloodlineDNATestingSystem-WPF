@@ -11,7 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
 
         <!-- Search -->
@@ -37,7 +37,7 @@
                      BorderBrush="{StaticResource color1}"
                      BorderThickness="0,0,0,1"                             
                      VerticalContentAlignment="Center"
-                     Margin="5,5,0,0" TextChanged="txtSearch_TextChanged"/>
+                     Margin="5,5,0,0"/>
             </StackPanel>
             <Button x:Name="btnSearch"
                 Grid.Column="1"                            
@@ -80,17 +80,20 @@
                   BorderThickness="0"
                   ItemsSource="{Binding Booking}">
                 <!-- Style header cho GridView -->
-                <ListView.Resources >
+                <ListView.Resources>
                     <Style TargetType="GridViewColumnHeader" BasedOn="{StaticResource lvGridViewColumnHeaderStyle}"/>
                 </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource lvItemStyle}"/>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView >
                         <GridViewColumn Header="BookingID" DisplayMemberBinding="{Binding BookingId}" />
                         <GridViewColumn Header="UserID" DisplayMemberBinding="{Binding UserId}" />
                         <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration.DurationName}" />
                         <GridViewColumn Header="Service" DisplayMemberBinding="{Binding Service.ServiceName}" />
-                        <GridViewColumn Header="Method" DisplayMemberBinding="{Binding CollectionMethod.MethodName}" />
-                        <GridViewColumn Header="Result" DisplayMemberBinding="{Binding TestResult.ResultSummary}" />
+                        <GridViewColumn Header="Method" DisplayMemberBinding="{Binding Method.MethodName}" />
+                        <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Result.ResultSummary}" />
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status.StatusName}" />
                         <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
                         <GridViewColumn Header="Edit">
@@ -127,11 +130,11 @@
                 <!-- Records, page -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0">
                     <TextBlock Text="Total:"
-                   Foreground="{StaticResource titleColor3}"
-                   FontFamily="{StaticResource Montserrat}"
-                   FontSize="13"
-                   VerticalAlignment="Center"
-                   Margin="0,0,8,0"/>
+                       Foreground="{StaticResource titleColor3}"
+                       FontFamily="{StaticResource Montserrat}"
+                       FontSize="13"
+                       VerticalAlignment="Center"
+                       Margin="0,0,8,0"/>
                     <TextBlock x:Name="txbNumberRecords"
                    Foreground="{StaticResource titleColor3}"
                    FontFamily="{StaticResource Montserrat}"
@@ -161,8 +164,9 @@
                             Background="{StaticResource panelOverColor}"
                             Foreground="Black"
                             BorderBrush="{x:Null}"
-                            Margin="0,0,4,0">
-                        <ComboBoxItem Content="10" />
+                            Margin="0,0,4,0"
+                              SelectionChanged="cmbRecordsPerPage_SelectionChanged">
+                        <ComboBoxItem Content="10"/>
                         <ComboBoxItem Content="20"/>
                         <ComboBoxItem Content="50"/>
                         <ComboBoxItem Content="100"/>

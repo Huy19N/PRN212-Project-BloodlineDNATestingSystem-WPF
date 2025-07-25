@@ -24,5 +24,15 @@ namespace WpfApp.Views
         {
             InitializeComponent();
         }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

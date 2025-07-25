@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="CUDWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="CUDWindow" Height="450" Width="800"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        Background="White">
 </Window>

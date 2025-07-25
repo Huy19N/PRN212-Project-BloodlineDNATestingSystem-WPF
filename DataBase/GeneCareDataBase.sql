@@ -22,18 +22,12 @@ CREATE TABLE Users (
     UserID INT PRIMARY KEY IDENTITY(1,1),
     RoleID INT NOT NULL FOREIGN KEY REFERENCES Role(RoleID),
     FullName NVARCHAR(150),
-	IdentifyID INT,
+	IdentifyID VARCHAR(13),
     [Address] NVARCHAR(500),
     Email NVARCHAR(200) NOT NULL UNIQUE,
     Phone VARCHAR(20),
     [Password] NVARCHAR(100)
 );
-
-
-
-
-
-
 
 -- Bảng Service
 CREATE TABLE [Service] (
@@ -47,7 +41,8 @@ CREATE TABLE [Service] (
 CREATE TABLE Duration (
     DurationID INT PRIMARY KEY IDENTITY(1,1),
     DurationName NVARCHAR(100),
-    [Time] TIME
+    [Time] TIME,
+	IsDeleted BIT DEFAULT 0
 );
 
 -- Bảng ServicePrice
@@ -86,14 +81,9 @@ CREATE TABLE Booking (
     ServiceID INT FOREIGN KEY REFERENCES [Service](ServiceID),
     MethodID INT FOREIGN KEY REFERENCES CollectionMethod(MethodID),
 	ResultID INT FOREIGN KEY REFERENCES TestResult(ResultID),
-    AppointmentTime DATETIME,
     StatusID INT FOREIGN KEY REFERENCES [Status](StatusID),
     [Date] DATETIME
 );
-
-
-
-
 
 -- Bảng Feedback
 CREATE TABLE Feedback (
@@ -133,8 +123,6 @@ CREATE TABLE Blog (
     CreatedAt DATETIME
 );
 
-
-
 -------------------------------------------INSERT DATA---------------------------------------------------------------
 INSERT INTO Role (RoleID, RoleName) VALUES
 (1, N'Customer'),
@@ -149,6 +137,7 @@ VALUES
 (3, N'ThuanManager','090909',N'HCM',N't@mana','0909090','123'),
 (4, N'ThuanAdmin','090909',N'HCM',N't@ad','0909090','123');
 go
+
 INSERT INTO Service (ServiceName ,ServiceType)
 VALUES 
 (N'Dân sự', N'Cha/Mẹ-Con'),
@@ -200,4 +189,9 @@ INSERT INTO Samples(SampleName)
  (N'Tóc'),
  (N'Niêm mạc miệng');
 go
-
+INSERT INTO Booking(UserID, DurationID, ServiceID, MethodID, StatusID, [Date])
+VALUES
+(1, 1, 1, 1, 1, GETDATE()),
+(1, 1, 1, 1, 1, GETDATE()),
+(1, 1, 1, 1, 1, GETDATE());
+GO

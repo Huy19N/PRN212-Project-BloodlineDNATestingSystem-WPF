@@ -10,8 +10,10 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Title="CustomerWindow" Height="450" Width="800">
+    
     <Border BorderThickness="1"
             CornerRadius="10">
+        
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>

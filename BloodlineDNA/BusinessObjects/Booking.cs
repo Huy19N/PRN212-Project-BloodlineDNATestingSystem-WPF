@@ -17,8 +17,6 @@ public partial class Booking
 
     public int? ResultId { get; set; }
 
-    public DateTime? AppointmentTime { get; set; }
-
     public int? StatusId { get; set; }
 
     public DateTime? Date { get; set; }

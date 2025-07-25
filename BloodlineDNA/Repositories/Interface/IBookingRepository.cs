@@ -14,6 +14,8 @@ namespace Repositories.Interface
         public bool AddBooking(Booking booking);
         public bool DeleteBooking(Booking booking);
         public bool UpdateBooking(Booking booking);
+
+        Task<ReturnData> GetAndSearchBooking(string key, int numberRecordsEachPage, int currentPage);
         public List<Booking> GetBookingsByUserID(int userId);
         public List<Booking> GetBookingsByDurationId(int durationId);
         public List<Booking> GetBookingsByServiceId(int serviceId);
