@@ -16,28 +16,13 @@ using System.Windows.Shapes;
 namespace WpfApp.Views
 {
     /// <summary>
-    /// Interaction logic for BookingView.xaml
+    /// Interaction logic for AdminBookingView.xaml
     /// </summary>
-    public partial class BookingView : UserControl
+    public partial class AdminBookingView : UserControl
     {
-        public BookingView()
+        public AdminBookingView()
         {
             InitializeComponent();
-        }
-
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddResult_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

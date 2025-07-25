@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WpfApp.Views
 {
     /// <summary>
-    /// Interaction logic for CustomerView.xaml
+    /// Interaction logic for AdminCustomerView.xaml
     /// </summary>
-    public partial class CustomerView : UserControl
+    public partial class AdminCustomerView : UserControl
     {
-        public CustomerView()
+        public AdminCustomerView()
         {
             InitializeComponent();
         }
