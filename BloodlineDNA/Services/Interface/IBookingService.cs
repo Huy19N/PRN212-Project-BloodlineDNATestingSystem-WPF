@@ -17,9 +17,6 @@ namespace Services.Interface
         Task<ReturnData> GetAndSearchBooking(string key, int numberRecordsEachPage, int currentPage);
         public List<Booking> GetBookingsByUserID(int userId);
         public List<Booking> GetBookingsByDurationId(int durationId);
-        public List<Booking> GetBookingsByServiceId(int serviceId);
         public List<Booking> GetBookingsByStatusId(int statusId);
-        public List<Booking> GetBookingsByMethodId(int methodId);
-        public List<Booking> GetBookingsByResultId(int resultId);
     }
 }

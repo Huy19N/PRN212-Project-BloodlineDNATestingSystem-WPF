@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects;
 using DataAccessLayer;
+using Repositories.Interface;
 
 namespace Repositories
 {
-    public class BookingRepository : Interface.IBookingRepository
+    public class BookingRepository : IBookingRepository
     {
         BookingDAO BookingDAO = new BookingDAO();
         public bool AddBooking(Booking booking)
@@ -36,25 +37,12 @@ namespace Repositories
             return await BookingDAO.GetAndSearchBooking(key, numberRecordsEachPage, currentPage);
         }
 
-        public List<Booking> GetBookingsByDurationId(int durationId)
-        {
-            return BookingDAO.GetBookingsByDurationId(durationId);
-        }
 
         public List<Booking> GetBookingsByMethodId(int methodId)
         {
             return BookingDAO.GetBookingsByMethodId(methodId);
         }
 
-        public List<Booking> GetBookingsByResultId(int resultId)
-        {
-            return BookingDAO.GetBookingsByResultId(resultId);
-        }
-
-        public List<Booking> GetBookingsByServiceId(int serviceId)
-        {
-            return BookingDAO.GetBookingsByServiceId(serviceId);
-        }
 
         public List<Booking> GetBookingsByStatusId(int statusId)
         {

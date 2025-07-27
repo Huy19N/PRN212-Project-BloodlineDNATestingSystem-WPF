@@ -11,7 +11,7 @@ public partial class User
 
     public string? FullName { get; set; }
 
-    public int? IdentifyId { get; set; }
+    public string? IdentifyId { get; set; }
 
     public string? Address { get; set; }
 
@@ -24,8 +24,6 @@ public partial class User
     public virtual ICollection<Blog> Blogs { get; set; } = new List<Blog>();
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
     public virtual Role Role { get; set; } = null!;
 }

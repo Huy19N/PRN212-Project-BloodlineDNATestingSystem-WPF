@@ -69,41 +69,7 @@ namespace WpfApp
 
         }
 
-        private void btnDashboard_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show($"Lỗi xuất dữ liệu bảng thông kê: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btnCustomer_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //MainContent.Content = new CustomerControll();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show($"Lỗi xuất dữ liệu Khách Hàng: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btnBlog_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //MainContent.Content = new BlogControll();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi xuất dữ liệu Blog: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+       
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
@@ -122,6 +88,12 @@ namespace WpfApp
         private void btnBooking_Checked(object sender, RoutedEventArgs e)
         {
             var view = new Views.AdminBookingView();
+            MainContent.Content = view;
+        }
+
+        private void btnCustomer_Checked(object sender, RoutedEventArgs e)
+        {
+            var view = new Views.AdminCustomerView();
             MainContent.Content = view;
         }
     }

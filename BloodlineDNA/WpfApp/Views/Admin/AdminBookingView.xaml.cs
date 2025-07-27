@@ -25,6 +25,7 @@ namespace WpfApp.Views
     public partial class AdminBookingView : UserControl
     {
         private IBookingService bookingService;
+        private int[] comboboxItems = new int[] { 10, 20, 50, 100, 200 };
         public AdminBookingView()
         {
             InitializeComponent();
@@ -36,15 +37,16 @@ namespace WpfApp.Views
         {
             try
             {
-                    var bookings = await bookingService.GetAndSearchBooking(key, numberRecordsEachPage, currentPage);
-                    if (bookings.Data is List<Booking> lsBooking)
-                    {
+                var bookings = await bookingService.GetAndSearchBooking(key, numberRecordsEachPage, currentPage);
+                if (bookings.Data is List<Booking> lsBooking)
+                {
                     lvBooking.ItemsSource = lsBooking;
-                    }
-                    cmbRecordsPerPage.SelectedIndex = numberRecordsEachPage;
-                    txbCurrentPage.Text = bookings.currentPage.ToString();
-                    txbMaxPage.Text = bookings.maxPage.ToString();
-                    txbNumberRecords.Text = bookings.numberRecords.ToString();
+                }
+
+                cmbRecordsPerPage.SelectedIndex = Array.IndexOf(comboboxItems, numberRecordsEachPage);
+                txbCurrentPage.Text = bookings.currentPage.ToString();
+                txbMaxPage.Text = bookings.maxPage.ToString();
+                txbNumberRecords.Text = bookings.numberRecords.ToString();
             }
             catch (Exception ex)
             {
@@ -66,6 +68,19 @@ namespace WpfApp.Views
         private void cmbRecordsPerPage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if(sender is Button btn && btn.CommandParameter is Booking booking)
+            {
+                MessageBox.Show($"Edit booking with ID: {booking.BookingId}", "Edit Booking", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Invalid booking data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using BusinessObjects;
 using Repositories;
 using Repositories.Interface;
+using Services.Interface;
 
 namespace Services
 {
-    public class TestResultService : Interface.ITestResultService
+    public class TestResultService : ITestResultService
     {
         ITestResultRepository testResultRepository;
 
@@ -30,11 +31,6 @@ namespace Services
         public List<TestResult> GetAllTestResults()
         {
             return testResultRepository.GetAllTestResults();
-        }
-
-        public TestResult GetTestResultById(int id)
-        {
-            return testResultRepository.GetTestResultById(id);
         }
 
         public bool UpdateTestResult(TestResult testResult)

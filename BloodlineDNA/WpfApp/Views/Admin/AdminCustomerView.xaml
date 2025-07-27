@@ -25,18 +25,18 @@
                 Grid.Column="0">
                 <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="{StaticResource color1}"/>
                 <TextBox x:Name="txtSearch"
-                 Text="Search..." 
-                 FontSize="13" 
-                 Height="24" Width="300"
-                 Background="Transparent"
-                 FontWeight="Medium"
-                 FontFamily="Montserrat"                            
-                 Foreground="{StaticResource color1}"
-                 CaretBrush="{StaticResource color1}"
-                 BorderBrush="{StaticResource color1}"
-                 BorderThickness="0,0,0,1"                             
-                 VerticalContentAlignment="Center"
-                 Margin="5,5,0,0" TextChanged="txtSearch_TextChanged"/>
+                         Text="Search..." 
+                         FontSize="13" 
+                         Height="24" Width="300"
+                         Background="Transparent"
+                         FontWeight="Medium"
+                         FontFamily="Montserrat"                            
+                         Foreground="{StaticResource color1}"
+                         CaretBrush="{StaticResource color1}"
+                         BorderBrush="{StaticResource color1}"
+                         BorderThickness="0,0,0,1"                             
+                         VerticalContentAlignment="Center"
+                         Margin="5,5,0,0"/>
             </StackPanel>
             <Button x:Name="btnSearch"
                     Grid.Column="1"                            
@@ -54,30 +54,32 @@
             </Button>
         </Grid>
 
-        <!-- Booking Table -->
+        <!-- User Table -->
         <Border Grid.Row="1"
         Background="{StaticResource panelColor}"
         CornerRadius="10" 
         Padding="10"
         Margin="0,0,0,5">
-            <ListView x:Name="lvBooking"
+            <ListView x:Name="lvUser"
               Background="Transparent"
               BorderThickness="0"
-              ItemsSource="{Binding Booking}">
+              ItemsSource="{Binding User}">
                 <!-- Style header cho GridView -->
                 <ListView.Resources >
                     <Style TargetType="GridViewColumnHeader" BasedOn="{StaticResource lvGridViewColumnHeaderStyle}"/>
                 </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource lvItemStyle}"/>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView >
-                        <GridViewColumn Header="BookingID" DisplayMemberBinding="{Binding BookingId}" />
-                        <GridViewColumn Header="UserID" DisplayMemberBinding="{Binding UserId}" />
-                        <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration.DurationName}" />
-                        <GridViewColumn Header="Service" DisplayMemberBinding="{Binding Service.ServiceName}" />
-                        <GridViewColumn Header="Method" DisplayMemberBinding="{Binding CollectionMethod.MethodName}" />
-                        <GridViewColumn Header="Result" DisplayMemberBinding="{Binding TestResult.ResultSummary}" />
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status.StatusName}" />
-                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
+                        <GridViewColumn Header="UserId" DisplayMemberBinding="{Binding UserId}" />
+                        <GridViewColumn Header="RoleName" DisplayMemberBinding="{Binding Role.RoleName}" />
+                        <GridViewColumn Header="FullName" DisplayMemberBinding="{Binding FullName}" />
+                        <GridViewColumn Header="IdentifyId" DisplayMemberBinding="{Binding IdentifyId}" />
+                        <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" />
+                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" />
+                        <GridViewColumn Header="Phone" DisplayMemberBinding="{Binding Phone}" />
                         <GridViewColumn Header="Edit">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

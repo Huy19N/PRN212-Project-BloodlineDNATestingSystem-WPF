@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using BusinessObjects;
 using Repositories;
 using Repositories.Interface;
+using Services.Interface;
 
 namespace Services
 {
-    public class FeedbackService : Interface.IFeedbackService
+    public class FeedbackService : IFeedbackService
     {
         IFeedbackRepository feedbackRepository;
 
@@ -32,15 +33,6 @@ namespace Services
             return feedbackRepository.GetAllFeedbacks();
         }
 
-        public Feedback GetFeedbackById(int id)
-        {
-            return feedbackRepository.GetFeedbackById(id);
-        }
-
-        public List<Feedback> GetFeedbacksByUserId(int userId)
-        {
-            return feedbackRepository.GetFeedbacksByUserId(userId);
-        }
 
         public bool UpdateFeedback(Feedback feedback)
         {

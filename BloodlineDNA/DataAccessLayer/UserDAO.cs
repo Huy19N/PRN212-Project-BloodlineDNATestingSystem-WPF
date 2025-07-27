@@ -1,9 +1,11 @@
-﻿using System;
+﻿using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessObjects;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DataAccessLayer
 {
@@ -14,6 +16,31 @@ namespace DataAccessLayer
         public User Login(string email, string password)
         {
             return context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+        }
+
+        public async Task<ReturnData?> GetAndSearchUser(string? key, int numberRecordsEachPage, int currentPage)
+        {
+            var query = context.Users.Include(u => u.Role)
+                                     .Where(u => u.UserId.ToString().Contains(key ?? "") ||
+                                                 u.Email.Contains(key ?? "") ||
+                                                 u.FullName.Contains(key ?? "") ||
+                                                 u.Role.RoleName.Contains(key ?? "") ||
+                                                 u.IdentifyId.Contains(key ?? ""));
+
+            int totalRecords = await query.CountAsync();
+
+            int maxPage = (int)Math.Ceiling((double)totalRecords / numberRecordsEachPage);
+
+            var pagedData = await query.Skip((currentPage - 1) * numberRecordsEachPage)
+                                       .Take(numberRecordsEachPage)
+                                       .ToListAsync();
+            return new ReturnData()
+            {
+                currentPage = currentPage,
+                numberRecords = totalRecords,
+                maxPage = maxPage,
+                Data = pagedData
+            };
         }
 
         public List<User> GetAllUsers()

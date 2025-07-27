@@ -13,9 +13,7 @@ public partial class Service
 
     public string? Description { get; set; }
 
-    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
-
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+    public bool IsDeleted { get; set; }
 
     public virtual ICollection<ServicePrice> ServicePrices { get; set; } = new List<ServicePrice>();
 }

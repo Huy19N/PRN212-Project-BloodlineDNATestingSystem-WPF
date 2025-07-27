@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using BusinessObjects;
 using Repositories;
 using Repositories.Interface;
+using Services.Interface;
 
 namespace Services
 {
-    public class BookingService : Interface.IBookingService
+    public class BookingService : IBookingService
     {
         IBookingRepository bookingRepository;
 
@@ -44,21 +45,6 @@ namespace Services
         public List<Booking> GetBookingsByDurationId(int durationId)
         {
             return bookingRepository.GetBookingsByStatusId(durationId);
-        }
-
-        public List<Booking> GetBookingsByMethodId(int methodId)
-        {
-            return bookingRepository.GetBookingsByResultId(methodId);
-        }
-
-        public List<Booking> GetBookingsByResultId(int resultId)
-        {
-            return bookingRepository.GetBookingsByResultId(resultId);
-        }
-
-        public List<Booking> GetBookingsByServiceId(int serviceId)
-        {
-            return bookingRepository.GetBookingsByServiceId(serviceId);
         }
 
         public List<Booking> GetBookingsByStatusId(int statusId)

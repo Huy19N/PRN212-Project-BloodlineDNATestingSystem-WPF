@@ -45,5 +45,10 @@ namespace Repositories
         {
             return userDAO.UpdateUser(user);
         }
+
+        public async Task<ReturnData?> GetAndSearchUser(string? key, int numberRecordsEachPage, int currentPage)
+        {
+            return await userDAO.GetAndSearchUser(key, numberRecordsEachPage, currentPage);
+        }
     }
 }

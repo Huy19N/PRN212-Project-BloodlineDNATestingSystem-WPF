@@ -88,7 +88,7 @@ namespace WpfApp
                     Email = txtUserName.Text.Trim(),
                     Password = txtPassword.Password.Trim(),
                     FullName = txtFullName.Text.Trim(),
-                    IdentifyId = int.Parse(txtIdentify.Text.Trim()),
+                    IdentifyId = txtIdentify.Text.Trim(),
                     Address = txtAddress.Text.Trim(),
                     Phone = txtPhone.Text.Trim(),
                     RoleId = 1

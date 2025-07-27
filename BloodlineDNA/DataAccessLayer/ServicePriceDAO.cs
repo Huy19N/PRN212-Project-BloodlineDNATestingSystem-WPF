@@ -16,7 +16,7 @@ namespace DataAccessLayer
         }
         public ServicePrice GetServicePriceById(int id)
         {
-            return context.ServicePrices.FirstOrDefault(sp => sp.PriceId == id);
+            return context.ServicePrices.FirstOrDefault(sp => sp.ServicePriceId == id);
         }
         public bool AddServicePrice(ServicePrice servicePrice)
         {

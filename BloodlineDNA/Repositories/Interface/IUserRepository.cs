@@ -16,5 +16,6 @@ namespace Repositories.Interface
         public bool UpdateUser(User user);
         public bool DeleteUser(int id);
         public User GetUserByEmail(string email);
+        Task<ReturnData?> GetAndSearchUser(string? key, int numberRecordsEachPage, int currentPage);
     }
 }

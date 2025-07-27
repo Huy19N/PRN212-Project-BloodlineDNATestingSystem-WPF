@@ -39,24 +39,26 @@ namespace DataAccessLayer
             context.Bookings.Update(booking);
             return context.SaveChanges() > 0;
         }
-        public async Task<ReturnData> GetAndSearchBooking(string key,int numberRecordsEachPage, int currentPage)
+        public async Task<ReturnData> GetAndSearchBooking(string? key,int numberRecordsEachPage, int currentPage)
         {
             try
             {
 
                 var query = context.Bookings
                             .Include(b => b.User)
-                            .Include(b => b.Duration)
-                            .Include(b => b.Service)
+                            .Include(b => b.ServicePrice)
+                                .ThenInclude(sp => sp.Service)
+                            .Include(b => b.ServicePrice)
+                                .ThenInclude(sp => sp.Duration)
                             .Include(b => b.Method)
-                            .Include(b => b.Result)
+                            .Include(b => b.TestResult)
                             .Include(b => b.Status)
-                            .Where(b => b.BookingId.ToString().Contains(key) ||
-                                        b.Duration.DurationName.Contains(key) ||
-                                        b.Service.ServiceName.Contains(key) ||
-                                        b.Method.MethodName.Contains(key) ||
-                                        b.Result.ResultSummary.Contains(key) ||
-                                        b.Status.StatusName.Contains(key));
+                            .Where(b => b.BookingId.ToString().Contains(key ?? "") ||
+                                        b.Method.MethodName.Contains(key ?? "") ||
+                                        b.TestResult.ResultSummary.Contains(key ?? "") ||
+                                        b.Status.StatusName.Contains(key ?? "") ||
+                                        b.ServicePrice.Duration.DurationName.Contains(key ?? "") ||
+                                        b.ServicePrice.Service.ServiceName.Contains(key ?? ""));
 
                 int totalRecords = await query.CountAsync();
 
@@ -65,6 +67,7 @@ namespace DataAccessLayer
                 var pagedData = await query.Skip((currentPage - 1) * numberRecordsEachPage)
                                            .Take(numberRecordsEachPage)
                                            .ToListAsync();
+                
                 return new ReturnData()
                 {
                     currentPage = currentPage,
@@ -87,19 +90,6 @@ namespace DataAccessLayer
                 .ToList();
         }
 
-        public List<Booking> GetBookingsByDurationId(int durationId)
-        {
-            return context.Bookings
-                .Where(b => b.DurationId == durationId)
-                .ToList();
-        }
-
-        public List<Booking> GetBookingsByServiceId(int serviceId)
-        {
-            return context.Bookings
-                .Where(b => b.ServiceId == serviceId)
-                .ToList();
-        }
 
         public List<Booking> GetBookingsByMethodId(int methodId)
         {
@@ -108,12 +98,6 @@ namespace DataAccessLayer
                 .ToList();
         }
 
-        public List<Booking> GetBookingsByResultId(int resultId)
-        {
-            return context.Bookings
-                .Where(b => b.ResultId == resultId)
-                .ToList();
-        }
 
         public List<Booking> GetBookingsByStatusId(int statusId)
         {

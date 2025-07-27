@@ -51,5 +51,9 @@ namespace Services
         {
             return _userRepository.UpdateUser(user);
         }
+        public async Task<ReturnData?> GetAndSearchUser(string? key, int numberRecordsEachPage, int currentPage)
+        {
+            return await _userRepository.GetAndSearchUser(key, numberRecordsEachPage, currentPage);
+        }
     }
 }

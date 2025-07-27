@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects;
 using DataAccessLayer;
+using Repositories.Interface;
 
 namespace Repositories
 {
-    public class TestResultRepository : Interface.ITestResultRepository
+    public class TestResultRepository : ITestResultRepository
     {
         TestResultDAO testResultDAO = new TestResultDAO();
         public bool AddTestResult(TestResult testResult)
@@ -24,11 +25,6 @@ namespace Repositories
         public List<TestResult> GetAllTestResults()
         {
             return testResultDAO.GetAllTestResults();
-        }
-
-        public TestResult GetTestResultById(int id)
-        {
-            return testResultDAO.GetTestResultById(id);
         }
 
         public bool UpdateTestResult(TestResult testResult)

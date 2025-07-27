@@ -14,12 +14,7 @@ namespace DataAccessLayer
             {
                 return context.TestResults.ToList();
             }
-    
-            public TestResult GetTestResultById(int id)
-            {
-                return context.TestResults.FirstOrDefault(tr => tr.ResultId == id);
-            }
-    
+        
             public bool AddTestResult(TestResult testResult)
             {
                 context.TestResults.Add(testResult);

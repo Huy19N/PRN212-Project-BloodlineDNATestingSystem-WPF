@@ -90,8 +90,8 @@
                     <GridView >
                         <GridViewColumn Header="BookingID" DisplayMemberBinding="{Binding BookingId}" />
                         <GridViewColumn Header="UserID" DisplayMemberBinding="{Binding UserId}" />
-                        <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding Duration.DurationName}" />
-                        <GridViewColumn Header="Service" DisplayMemberBinding="{Binding Service.ServiceName}" />
+                        <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding ServicePrice.Duration.DurationName}" />
+                        <GridViewColumn Header="Service" DisplayMemberBinding="{Binding ServicePrice.Service.ServiceName}" />
                         <GridViewColumn Header="Method" DisplayMemberBinding="{Binding Method.MethodName}" />
                         <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Result.ResultSummary}" />
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status.StatusName}" />
@@ -100,14 +100,15 @@
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Width="30" Height="30"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Cursor="Hand"
-                                        ToolTip="Edit"
-                                        Style="{StaticResource btnInLVStyle}"
-                                        Tag="{StaticResource buttonHoverColor5}">
-                                        <fa:IconImage Icon="PenToSquare"
-                                          Style="{StaticResource btnIconLVStyle}"/>
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            ToolTip="Edit"
+                                            Style="{StaticResource btnInLVStyle}"
+                                            Tag="{StaticResource buttonHoverColor5}"
+                                            CommandParameter="{Binding}" Click="btnEdit_Click">
+                                            <fa:IconImage Icon="PenToSquare"
+                                              Style="{StaticResource btnIconLVStyle}"/>
                                     </Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

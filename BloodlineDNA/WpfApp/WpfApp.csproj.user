@@ -17,10 +17,16 @@
     <Compile Update="RegisterWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\AdminBookingView.xaml.cs">
+    <Compile Update="Views\Admin\AdminBookingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\AdminCustomerView.xaml.cs">
+    <Compile Update="Views\Admin\AdminCustomerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CUD\CUDBooking.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\CustomerBookingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

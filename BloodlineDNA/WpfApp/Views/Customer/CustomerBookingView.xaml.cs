@@ -13,24 +13,29 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp.Views
+namespace WpfApp.Views.Customer
 {
     /// <summary>
-    /// Interaction logic for AdminCustomerView.xaml
+    /// Interaction logic for CustomerBookingView.xaml
     /// </summary>
-    public partial class AdminCustomerView : UserControl
+    public partial class CustomerBookingView : UserControl
     {
-        public AdminCustomerView()
+        public CustomerBookingView()
         {
             InitializeComponent();
         }
 
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private void btnAddResult_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmbRecordsPerPage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

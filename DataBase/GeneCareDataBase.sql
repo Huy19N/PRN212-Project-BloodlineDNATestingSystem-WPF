@@ -34,7 +34,8 @@ CREATE TABLE [Service] (
     ServiceID INT PRIMARY KEY IDENTITY(1,1),
     ServiceName NVARCHAR(200),
     ServiceType NVARCHAR(100),
-    [Description] NVARCHAR(MAX)
+    [Description] NVARCHAR(MAX),
+	IsDeleted BIT NOT NULL DEFAULT 0
 );
 
 -- Bảng Duration
@@ -42,15 +43,16 @@ CREATE TABLE Duration (
     DurationID INT PRIMARY KEY IDENTITY(1,1),
     DurationName NVARCHAR(100),
     [Time] TIME,
-	IsDeleted BIT DEFAULT 0
+	IsDeleted BIT NOT NULL DEFAULT 0
 );
 
 -- Bảng ServicePrice
 CREATE TABLE ServicePrice (
-    PriceID INT PRIMARY KEY IDENTITY(1,1),
+    ServicePriceID INT PRIMARY KEY IDENTITY(1,1),
     ServiceID INT FOREIGN KEY REFERENCES [Service](ServiceID),
     DurationID INT FOREIGN KEY REFERENCES Duration(DurationID),
-    Price INT
+    Price MONEY NOT NULL,
+	IsDeleted BIT NOT NULL DEFAULT 0
 );
 
 -- Bảng CollectionMethod
@@ -65,34 +67,31 @@ CREATE TABLE [Status] (
     StatusID INT PRIMARY KEY IDENTITY(1,1),
     StatusName NVARCHAR(50)
 );
-
--- Bảng TestResult
-CREATE TABLE TestResult (
-    ResultID INT PRIMARY KEY IDENTITY(1,1),
-    [Date] DATETIME,
-    ResultSummary NVARCHAR(MAX)
-);
-
 -- Bảng Booking
 CREATE TABLE Booking (
     BookingID INT PRIMARY KEY IDENTITY(1,1),
     UserID INT FOREIGN KEY REFERENCES Users(UserID),
-    DurationID INT FOREIGN KEY REFERENCES Duration(DurationID),
-    ServiceID INT FOREIGN KEY REFERENCES [Service](ServiceID),
+    ServicePriceID INT FOREIGN KEY REFERENCES ServicePrice(ServicePriceID),
     MethodID INT FOREIGN KEY REFERENCES CollectionMethod(MethodID),
-	ResultID INT FOREIGN KEY REFERENCES TestResult(ResultID),
+    AppointmentTime DATETIME,
     StatusID INT FOREIGN KEY REFERENCES [Status](StatusID),
     [Date] DATETIME
+);
+-- Bảng TestResult
+CREATE TABLE TestResult (
+    BookingID INT PRIMARY KEY,
+    [Date] DATETIME,
+    ResultSummary NVARCHAR(MAX),
+	CONSTRAINT FK_TestResult_Booking FOREIGN KEY (BookingID) REFERENCES Booking(BookingID)
 );
 
 -- Bảng Feedback
 CREATE TABLE Feedback (
-    FeedbackID INT PRIMARY KEY IDENTITY(1,1),
-    UserID INT FOREIGN KEY REFERENCES Users(UserID) NOT NULL,
-    ServiceID INT FOREIGN KEY REFERENCES [Service](ServiceID) NOT NULL,
+    BookingID INT PRIMARY KEY,
     CreatedAt DATETIME NOT NULL,
     Comment NVARCHAR(MAX),
-    Rating INT NOT NULL
+    Rating INT NOT NULL CHECK (Rating BETWEEN 1 AND 5),
+    CONSTRAINT FK_Feedback_Booking FOREIGN KEY (BookingID) REFERENCES Booking(BookingID)
 );
 
 -- Bảng Samples
@@ -189,9 +188,9 @@ INSERT INTO Samples(SampleName)
  (N'Tóc'),
  (N'Niêm mạc miệng');
 go
-INSERT INTO Booking(UserID, DurationID, ServiceID, MethodID, StatusID, [Date])
+INSERT INTO Booking(UserID, ServicePriceID, MethodID, StatusID, [Date])
 VALUES
-(1, 1, 1, 1, 1, GETDATE()),
-(1, 1, 1, 1, 1, GETDATE()),
-(1, 1, 1, 1, 1, GETDATE());
+(1, 1, 1, 1, GETDATE()),
+(1, 1, 1, 1, GETDATE()),
+(1, 1, 1, 1, GETDATE());
 GO
