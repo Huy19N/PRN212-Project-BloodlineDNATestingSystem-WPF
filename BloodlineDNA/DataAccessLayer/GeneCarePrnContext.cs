@@ -1,8 +1,7 @@
-﻿using BusinessObjects;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer;
 
@@ -43,22 +42,15 @@ public partial class GeneCarePrnContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    private string GetConnectionString()
-    {
-        IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true).Build();
-        return configuration["ConnectionStrings:DefaultConnectionString"];
-    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(GetConnectionString());
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=.;Database=GeneCarePRN;uid=sa;pwd=12345;TrustServerCertificate=True;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Blog>(entity =>
         {
-            entity.HasKey(e => e.BlogId).HasName("PK__Blog__54379E50ABF6A4B7");
+            entity.HasKey(e => e.BlogId).HasName("PK__Blog__54379E50DD4850A6");
 
             entity.ToTable("Blog");
 
@@ -74,7 +66,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.BookingId).HasName("PK__Booking__73951ACD8A32F93F");
+            entity.HasKey(e => e.BookingId).HasName("PK__Booking__73951ACD8FAACE9C");
 
             entity.ToTable("Booking");
 
@@ -105,7 +97,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<CollectionMethod>(entity =>
         {
-            entity.HasKey(e => e.MethodId).HasName("PK__Collecti__FC681FB14B10CE66");
+            entity.HasKey(e => e.MethodId).HasName("PK__Collecti__FC681FB11E216091");
 
             entity.ToTable("CollectionMethod");
 
@@ -115,7 +107,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Duration>(entity =>
         {
-            entity.HasKey(e => e.DurationId).HasName("PK__Duration__AF77E81691B7D3DB");
+            entity.HasKey(e => e.DurationId).HasName("PK__Duration__AF77E81609CF24AE");
 
             entity.ToTable("Duration");
 
@@ -125,7 +117,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.BookingId).HasName("PK__Feedback__73951ACDA39B7F4C");
+            entity.HasKey(e => e.BookingId).HasName("PK__Feedback__73951ACD2BCA1BA1");
 
             entity.ToTable("Feedback");
 
@@ -142,7 +134,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Patient>(entity =>
         {
-            entity.HasKey(e => e.PatientId).HasName("PK__Patient__970EC3469104D21C");
+            entity.HasKey(e => e.PatientId).HasName("PK__Patient__970EC3461980C055");
 
             entity.ToTable("Patient");
 
@@ -150,11 +142,9 @@ public partial class GeneCarePrnContext : DbContext
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
             entity.Property(e => e.FullName).HasMaxLength(200);
             entity.Property(e => e.Gender).HasMaxLength(10);
-            entity.Property(e => e.HasTestedDna).HasColumnName("HasTestedDNA");
             entity.Property(e => e.IdentifyId)
                 .HasMaxLength(50)
                 .HasColumnName("IdentifyID");
-            entity.Property(e => e.Relationship).HasMaxLength(100);
             entity.Property(e => e.SampleId).HasColumnName("SampleID");
 
             entity.HasOne(d => d.Booking).WithMany(p => p.Patients)
@@ -168,7 +158,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__8AFACE3A97FF4B92");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__8AFACE3ACC186F79");
 
             entity.ToTable("Role");
 
@@ -180,7 +170,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Sample>(entity =>
         {
-            entity.HasKey(e => e.SampleId).HasName("PK__Samples__8B99EC0A2CCFE3D3");
+            entity.HasKey(e => e.SampleId).HasName("PK__Samples__8B99EC0A339AF5A3");
 
             entity.Property(e => e.SampleId).HasColumnName("SampleID");
             entity.Property(e => e.SampleName).HasMaxLength(200);
@@ -188,18 +178,17 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.ServiceId).HasName("PK__Service__C51BB0EA2A3A7004");
+            entity.HasKey(e => e.ServiceId).HasName("PK__Service__C51BB0EAE2EC9DF4");
 
             entity.ToTable("Service");
 
             entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
-            entity.Property(e => e.ServiceName).HasMaxLength(200);
             entity.Property(e => e.ServiceType).HasMaxLength(100);
         });
 
         modelBuilder.Entity<ServicePrice>(entity =>
         {
-            entity.HasKey(e => e.ServicePriceId).HasName("PK__ServiceP__E8178A8F1D31FC2E");
+            entity.HasKey(e => e.ServicePriceId).HasName("PK__ServiceP__E8178A8FE7B22DEA");
 
             entity.ToTable("ServicePrice");
 
@@ -219,7 +208,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__Status__C8EE204363130E87");
+            entity.HasKey(e => e.StatusId).HasName("PK__Status__C8EE2043F0C81D7A");
 
             entity.ToTable("Status");
 
@@ -229,7 +218,7 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<TestResult>(entity =>
         {
-            entity.HasKey(e => e.BookingId).HasName("PK__TestResu__73951ACDFED46F0F");
+            entity.HasKey(e => e.BookingId).HasName("PK__TestResu__73951ACDEBC48095");
 
             entity.ToTable("TestResult");
 
@@ -246,9 +235,9 @@ public partial class GeneCarePrnContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC5F5B2D01");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC142CA5C4");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534D9F035A4").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534FEECF819").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.Address).HasMaxLength(500);

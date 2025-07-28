@@ -24,12 +24,12 @@ namespace WpfApp.Views
     /// </summary>
     public partial class AdminBookingView : UserControl
     {
-        private IBookingService bookingService;
+        private IAdminService service = new AdminService();
         private int[] comboboxItems = new int[] { 10, 20, 50, 100, 200 };
         public AdminBookingView()
         {
             InitializeComponent();
-            bookingService = new BookingService();
+            
             LoadData("", 10, 1);
         }
 
@@ -37,7 +37,7 @@ namespace WpfApp.Views
         {
             try
             {
-                var bookings = await bookingService.GetAndSearchBooking(key, numberRecordsEachPage, currentPage);
+                var bookings = await service.GetAndSearchBooking(key, numberRecordsEachPage, currentPage);
                 if (bookings.Data is List<Booking> lsBooking)
                 {
                     lvBooking.ItemsSource = lsBooking;
@@ -62,12 +62,13 @@ namespace WpfApp.Views
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            LoadData(txtSearch.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], 1);
         }
 
         private void cmbRecordsPerPage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            int currentPage = int.TryParse(txbCurrentPage?.Text, out int tempPage) ? tempPage : 1;
+            LoadData(txtSearch.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], currentPage);
         }
 
 
@@ -81,6 +82,33 @@ namespace WpfApp.Views
             {
                 MessageBox.Show("Invalid booking data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void btnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            if(int.TryParse(txbCurrentPage.Text,out int currentPage))
+            {
+                currentPage--;
+                LoadData(txtSearch.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], currentPage<=0? 1: currentPage);
+            }
+            else
+            {
+                LoadData(txtSearch.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], 1);
+            }
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(txbCurrentPage.Text, out int currentPage))
+            {
+                currentPage++;
+                if(int.TryParse(txbMaxPage.Text, out int maxPage))
+                {
+                    LoadData(txtSearch.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], currentPage >= maxPage ? maxPage : currentPage);
+                    return;
+                }
+            }
+            LoadData(txtSearch.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], 1);
         }
     }
 }

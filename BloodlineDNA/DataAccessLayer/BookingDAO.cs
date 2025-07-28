@@ -58,7 +58,7 @@ namespace DataAccessLayer
                                         b.TestResult.ResultSummary.Contains(key ?? "") ||
                                         b.Status.StatusName.Contains(key ?? "") ||
                                         b.ServicePrice.Duration.DurationName.Contains(key ?? "") ||
-                                        b.ServicePrice.Service.ServiceName.Contains(key ?? ""));
+                                        b.ServicePrice.Service.ServiceType.Contains(key ?? ""));
 
                 int totalRecords = await query.CountAsync();
 

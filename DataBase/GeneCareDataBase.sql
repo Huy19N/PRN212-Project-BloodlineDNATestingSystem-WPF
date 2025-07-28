@@ -32,7 +32,7 @@ CREATE TABLE Users (
 -- Bảng Service
 CREATE TABLE [Service] (
     ServiceID INT PRIMARY KEY IDENTITY(1,1),
-    ServiceName NVARCHAR(200),
+
     ServiceType NVARCHAR(100),
     [Description] NVARCHAR(MAX),
 	IsDeleted BIT NOT NULL DEFAULT 0
@@ -108,9 +108,7 @@ CREATE TABLE Patient (
     FullName NVARCHAR(200) NOT NULL,
     BirthDate DATE NOT NULL,
     Gender NVARCHAR(10) NOT NULL, -- 'Nam', 'Nữ'
-    IdentifyID NVARCHAR(50),
-    HasTestedDNA BIT NOT NULL,
-    Relationship NVARCHAR(100) -- Quan hệ với người còn lại trong cùng booking
+    IdentifyID NVARCHAR(50)
 );
 
 -- Bảng Blog
@@ -137,21 +135,14 @@ VALUES
 (4, N'ThuanAdmin','090909',N'HCM',N't@ad','0909090','123');
 go
 
-INSERT INTO Service (ServiceName ,ServiceType)
+INSERT INTO Service (ServiceType)
 VALUES 
-(N'Dân sự', N'Cha/Mẹ-Con'),
-(N'Dân sự', N'Anh/Chị-Em'),
-(N'Dân sự', N'song sinh'),
-(N'Dân sự', N'Cô/Chú-Cháu'),
-(N'Dân sự', N'Dì/Cậu-Cháu'),
-(N'Dân sự', N'Ông/Bà-Cháu'),
-
-(N'Pháp lý', N'Cha/Mẹ-Con'),
-(N'Pháp lý', N'Anh/Chị-Em'),
-(N'Pháp lý', N'song sinh'),
-(N'Pháp lý', N'Cô/Chú-Cháu'),
-(N'Pháp lý', N'Dì/Cậu-Cháu'),
-(N'Pháp lý', N'Ông/Bà-Cháu');
+(N'Cha/Mẹ-Con'),
+(N'Anh/Chị-Em'),
+(N'song sinh'),
+(N'Cô/Chú-Cháu'),
+(N'Dì/Cậu-Cháu'),
+(N'Ông/Bà-Cháu');
 go
 INSERT INTO Duration(DurationName )
 VALUES
@@ -164,9 +155,21 @@ VALUES
 (1,1,2500000),
 (1,2,2000000),
 (1,3,1500000),
-(7,1,3500000),
-(7,2,3000000),
-(7,3,2500000);
+(2,1,3500000),
+(2,2,3000000),
+(2,3,2500000),
+(3,1,2500000),
+(3,2,2000000),
+(3,3,1500000),
+(4,1,3500000),
+(4,2,3000000),
+(4,3,2500000),
+(5,1,2500000),
+(5,2,2000000),
+(5,3,1500000),
+(6,1,3500000),
+(6,2,3000000),
+(6,3,2500000);
 go
 INSERT INTO CollectionMethod (MethodName)
 VALUES

@@ -7,29 +7,84 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <Border Grid.Row="1"
+            Background="{StaticResource panelColor}"
+            CornerRadius="10" 
+            Padding="10"
+            Margin="0,0,0,5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <!-- Title -->
+                <RowDefinition Height="50"/>
+                <!-- Type -->
+                <RowDefinition Height="50"/>
+                <!-- Patient -->
+                <RowDefinition Height="1*"/>
+                <!-- Button -->
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- name -->
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        HorizontalAlignment="Center">
+                <TextBlock x:Name="txtPName1" Text="Booking"
+                           FontSize="{StaticResource Title1}"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource titleColor1}"
+                           FontFamily="{StaticResource Montserrat}"
+                           VerticalAlignment="Center"
+                           Margin="10"/>
+            </StackPanel>
+            <!-- age -->
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Booking"
+                           FontSize="{StaticResource Title1}"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource titleColor1}"
+                           FontFamily="{StaticResource Montserrat}"
+                           VerticalAlignment="Center"
+                           Margin="10"/>
+            </StackPanel>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <!-- Title -->
-            <RowDefinition Height="50"/>
-            <!-- Data -->
-            <RowDefinition Height="*"/>
-            <!-- Button -->             
-            <RowDefinition Height="0.1*"/>
-        </Grid.RowDefinitions>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Patient 1 -->
+                
+                <StackPanel Grid.Column="0" Margin="10" 
+                            Orientation="Vertical">
+                    <TextBlock Text="Patient 1"
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}"
+                               HorizontalAlignment="Center"/>
+                    <!-- -->
+                    <DockPanel>
+                        <TextBlock Text="Name: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}"
+                                   Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtUserName"
+                                 FontSize="{StaticResource Title3}"
+                                 FontFamily="{StaticResource Montserrat}"
+                                 Foreground="{StaticResource titleColor3}"
+                                 CaretBrush="LightGray"
+                                 BorderBrush="DarkGray"
+                                 BorderThickness="0,0,0,1"
+                                 Background="Transparent"
+                                 VerticalAlignment="Center"/>
+                    </DockPanel>                    
+                </StackPanel>
+            </Grid>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="0"
-                    HorizontalAlignment="Center">
-            <TextBlock Text="Booking"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       VerticalAlignment="Center"
-                       Margin="10"/>
-
-        </StackPanel>
 
 
-
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

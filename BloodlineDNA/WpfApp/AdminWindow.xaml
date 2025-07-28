@@ -37,10 +37,9 @@
                 <!-- Nav Bar-->
                 <ColumnDefinition Width="0.4*"/>
                 <ColumnDefinition Width="*"/>
-                
+
             </Grid.ColumnDefinitions>
 
-            
             <!-- Nav Menu-->
             <Border CornerRadius="10, 0, 0, 10"
                     Grid.Column="0">

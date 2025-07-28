@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
-    <!-- txblk of Header Row Style-->
+    <!-- GridViewColumnHeader Style-->
     <Style x:Key="lvGridViewColumnHeaderStyle" TargetType="GridViewColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -33,7 +33,7 @@
                                Cursor="SizeWE">
                             <Thumb.Template>
                                 <ControlTemplate TargetType="Thumb">
-                                    <Border x:Name="thumbBorder" Background="{StaticResource color1}" />
+                                    <Border x:Name="thumbBorder" Background="LightGray" />
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter TargetName="thumbBorder" Property="Background" Value="{StaticResource buttonHoverColor5}" />
@@ -106,13 +106,6 @@
             </Setter>
         </Style>
 
-    <!-- txblk of Data Row Style -->
-    <Style x:Key="lvDataRowTextBlockStyle" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource Montserrat}"/>
-        <Setter Property="FontSize" Value="{StaticResource Title3}"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontWeight" Value="Regular"/>
-    </Style>
     <!-- Button Style ("Tag color when hover")-->
     <Style x:Key="btnInLVStyle" TargetType="Button">
         <Setter Property="Template">
