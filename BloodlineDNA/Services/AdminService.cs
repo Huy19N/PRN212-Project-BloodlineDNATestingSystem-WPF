@@ -16,6 +16,7 @@ namespace Services
         private readonly IServicePriceRepository servicePriceRepository = new ServicePriceRepository();
         private readonly ISampleRepository sampleRepository = new SampleRepository();
         private readonly IStatusRepository statusRepository = new StatusRepository();
+        private readonly ICollectionMethodRepository collectionMethodRepository = new CollectionMethodRepository();
 
         public async Task<ReturnData> GetAndSearchBooking(string key, int numberRecordsEachPage, int currentPage)
         {
@@ -40,6 +41,11 @@ namespace Services
         public List<Status>? GetAllStatuses()
         {
             return statusRepository.GetAllStatuses();
+        }
+
+        public List<CollectionMethod>? GetAllCollectionMethods()
+        {
+            return collectionMethodRepository.GetCollectionAll();
         }
     }
 }

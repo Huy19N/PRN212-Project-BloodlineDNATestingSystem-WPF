@@ -9,7 +9,7 @@ namespace Repositories.Interface
 {
     public interface ICollectionMethodRepository
     {
-        public List<CollectionMethod> GetCollectionAll();
+        public List<CollectionMethod>? GetCollectionAll();
         public CollectionMethod GetCollectionMethodById(int id);
         public bool AddCollectionMethod(CollectionMethod collectionMethod);
         public bool DeleteCollectionMethod(CollectionMethod collectionMethod);

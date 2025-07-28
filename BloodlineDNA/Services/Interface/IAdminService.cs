@@ -14,5 +14,6 @@ namespace Services.Interface
         List<ServicePrice>? GetAllAvailableServicePrices();
         List<Sample>? GetAllSamples();
         List<Status>? GetAllStatuses();
+        List<CollectionMethod>? GetAllCollectionMethods();
     }
 }
