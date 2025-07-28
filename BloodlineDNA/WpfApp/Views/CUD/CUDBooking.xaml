@@ -6,7 +6,30 @@
              xmlns:local="clr-namespace:WpfApp.Views.CUD"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <!-- Title -->
+            <RowDefinition Height="50"/>
+            <!-- Data -->
+            <RowDefinition Height="*"/>
+            <!-- Button -->             
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Booking"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="10"/>
+
+        </StackPanel>
+
+
+
     </Grid>
 </UserControl>

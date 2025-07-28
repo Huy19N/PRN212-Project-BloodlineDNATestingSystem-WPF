@@ -1,9 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
 
     <!-- Montserrat -->
     <FontFamily x:Key="Montserrat">pack://application:,,,/Fonts/Montserrat/Montserrat-Regular.ttf#Montserrat</FontFamily>
     <FontFamily x:Key="MontserratBold">pack://application:,,,/Fonts/Montserrat/static/Montserrat-Bold.ttf#Montserrat</FontFamily>
     <FontFamily x:Key="MontserratItalic">pack://application:,,,/Fonts/Montserrat/static/Montserrat-Italic.ttf#Montserrat</FontFamily>
-
+    
+    
+    <!-- Font size -->
+    <System:Double x:Key="Title1">32</System:Double>
+    <System:Double x:Key="Title2">24</System:Double>
+    <System:Double x:Key="Title3">16</System:Double>
+    <System:Double x:Key="Title4">12</System:Double>
 </ResourceDictionary>

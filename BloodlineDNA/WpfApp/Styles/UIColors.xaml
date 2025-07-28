@@ -56,5 +56,8 @@
     <SolidColorBrush x:Key="buttonColor6" Color="#E285DE"/>
     <SolidColorBrush x:Key="buttonHoverColor6" Color="#F295EE"/>
 
+    <!-- Color Combobox -->
+    <SolidColorBrush x:Key="cmbColor1" Color="#836EFB"/>
+    <SolidColorBrush x:Key="cmbHoverColor1" Color="#93AEFB"/>
     <!-- Color TextBox -->
 </ResourceDictionary>

@@ -27,7 +27,7 @@
                 <fa:IconImage Icon="Search" Height="20" Width="20" Foreground="{StaticResource color1}"/>
                 <TextBox x:Name="txtSearch"
                      Text="Search..." 
-                     FontSize="13" 
+                     FontSize="{StaticResource Title2}" 
                      Height="24" Width="300"
                      Background="Transparent"
                      FontWeight="Medium"
@@ -42,7 +42,7 @@
             <Button x:Name="btnSearch"
                 Grid.Column="1"                            
                 Content="Search"            
-                FontSize="12"
+                FontSize="{StaticResource Title3}"
                 FontFamily="Montserrat"
                 Cursor="Hand"
                 BorderThickness="0"
@@ -56,7 +56,7 @@
             <Button x:Name="btnAddResult"
                 Grid.Column="2"                            
                 Content="Add Result"            
-                FontSize="12"
+                FontSize="{StaticResource Title3}"
                 FontFamily="Montserrat"
                 Cursor="Hand"
                 BorderThickness="0"
@@ -95,7 +95,7 @@
                         <GridViewColumn Header="Method" DisplayMemberBinding="{Binding Method.MethodName}" />
                         <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Result.ResultSummary}" />
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status.StatusName}" />
-                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
+                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date, StringFormat='dd/MM/yyyy'}" />
                         <GridViewColumn Header="Edit">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -133,39 +133,37 @@
                     <TextBlock Text="Total:"
                        Foreground="{StaticResource titleColor3}"
                        FontFamily="{StaticResource Montserrat}"
-                       FontSize="13"
+                       FontSize="{StaticResource Title3}"
                        VerticalAlignment="Center"
                        Margin="0,0,8,0"/>
                     <TextBlock x:Name="txbNumberRecords"
                    Foreground="{StaticResource titleColor3}"
                    FontFamily="{StaticResource Montserrat}"
-                   FontSize="13"
+                   FontSize="{StaticResource Title3}"
                    VerticalAlignment="Center"
                    Margin="0,0,8,0"/>
                     <TextBlock Text="records"
                    Foreground="{StaticResource titleColor3}"
                    FontFamily="{StaticResource Montserrat}"
-                   FontSize="13"
+                   FontSize="{StaticResource Title3}"
                    VerticalAlignment="Center"
                    Margin="0,0,16,0"/>
 
                     <TextBlock Text="Show"
                    Foreground="{StaticResource titleColor3}"
                    FontFamily="{StaticResource Montserrat}"
-                   FontSize="13"
+                   FontSize="{StaticResource Title3}"
                    VerticalAlignment="Center"
                    Margin="0,0,4,0"/>
                     <ComboBox x:Name="cmbRecordsPerPage"
-                            Width="60"
-                            Height="28"
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource Montserrat}"
-                            FontSize="20"
-                            SelectedIndex="0"
-                            Background="{StaticResource panelOverColor}"
-                            Foreground="Black"
-                            BorderBrush="{x:Null}"
-                            Margin="0,0,4,0"
+                              Width="60"
+                              Height="28"
+                              VerticalAlignment="Center"
+                              FontFamily="{StaticResource Montserrat}"
+                              FontSize="{StaticResource Title3}"
+                              SelectedIndex="0"
+                              Background="{StaticResource panelOverColor}"
+                              Margin="0,0,4,0"
                               SelectionChanged="cmbRecordsPerPage_SelectionChanged">
                         <ComboBoxItem Content="10"/>
                         <ComboBoxItem Content="20"/>
@@ -176,7 +174,7 @@
                     <TextBlock Text="per page"
                            Foreground="{StaticResource titleColor2}"
                            FontFamily="{StaticResource Montserrat}"
-                           FontSize="13"
+                           FontSize="{StaticResource Title3}"
                            VerticalAlignment="Center"
                            Margin="0,0,0,0"/>
                 </StackPanel>
@@ -187,7 +185,7 @@
                         Width="70"
                         Height="30"
                         FontFamily="{StaticResource Montserrat}"
-                        FontSize="13"
+                        FontSize="{StaticResource Title3}"
                         FontWeight="Bold"
                         Foreground="{StaticResource titleColor1}"
                         Background="{StaticResource buttonColor3}"
@@ -199,19 +197,19 @@
                     <TextBlock x:Name="txbCurrentPage"
                            Foreground="{StaticResource titleColor3}"
                            FontFamily="{StaticResource Montserrat}"
-                           FontSize="13"
+                           FontSize="{StaticResource Title3}"
                            VerticalAlignment="Center"
                            Margin="0,0,2,0"/>
                     <TextBlock Text="/"
                            Foreground="{StaticResource titleColor3}"
                            FontFamily="{StaticResource Montserrat}"
-                           FontSize="13"
+                           FontSize="{StaticResource Title3}"
                            VerticalAlignment="Center"
                            Margin="0,0,2,0"/>
                     <TextBlock x:Name="txbMaxPage"
                            Foreground="{StaticResource titleColor3}"
                            FontFamily="{StaticResource Montserrat}"
-                           FontSize="13"
+                           FontSize="{StaticResource Title3}"
                            VerticalAlignment="Center"
                            Margin="0,0,4,0"/>
                     <Button x:Name="btnNext"
@@ -219,7 +217,7 @@
                         Width="70"
                         Height="30"
                         FontFamily="{StaticResource Montserrat}"
-                        FontSize="13"
+                        FontSize="{StaticResource Title3}"
                         Foreground="{StaticResource titleColor1}"
                         Background="{StaticResource buttonColor2}"
                         Tag="{StaticResource buttonHoverColor2}"
