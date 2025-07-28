@@ -49,7 +49,7 @@
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Register"
+                <TextBlock Text="Đăng Ký"
                        Foreground="DarkGray"
                        FontSize="10"
                        FontFamily="Arial"
@@ -102,7 +102,7 @@
                          FontFamily="{StaticResource Montserrat}"
                          FontSize="25"
                          HorizontalAlignment="Center"/>
-                    <TextBlock Text="Please Register to use us system!"
+                    <TextBlock Text="Làm ơn đăng ký trước khi sử dụng hệ thống!"
                            Foreground="LightGray"
                            FontSize="12"
                            FontFamily="{StaticResource Montserrat}"
@@ -135,7 +135,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="FullName"
+                    <TextBlock Text="Họ và Tên"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -185,7 +185,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Address"
+                    <TextBlock Text="Nơi Ở"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -211,7 +211,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Phone"
+                    <TextBlock Text="Số Điện Thoại"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -237,7 +237,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Password"
+                    <TextBlock Text="Mật Khẩu"
                            FontSize="12"
                            FontFamily="{StaticResource Montserrat}"
                            Foreground="Gray"
@@ -261,7 +261,7 @@
                         </PasswordBox.Background>
                     </PasswordBox>
 
-                    <TextBlock Text="Confirm Password"
+                    <TextBlock Text="Xác Thực Mật Khẩu"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -286,7 +286,7 @@
 
                     <Button x:Name="btnRegister"
                         BorderThickness="0"
-                        Content="Register"
+                        Content="Đăng Ký"
                         Foreground="White"
                         FontSize="16"
                         FontFamily="Arial"
@@ -317,17 +317,14 @@
                     <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"
                             Margin="0,15,0,0">
-                        <TextBlock Text="ForgetPassword"
-                               Foreground="Gray"
-                               FontSize="12"
-                               FontFamily="{StaticResource Montserrat}"/>
 
-                        <TextBlock Text="Reset"
-                               Foreground="LightGray"
-                               FontSize="12"
-                               FontFamily="{StaticResource Montserrat}"
-                               Cursor="Hand"
-                               Margin="8,0,0,0"/>
+                        <TextBlock Text="Đăng Nhập"
+                                   Foreground="LightGray"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource Montserrat}"
+                                   Cursor="Hand"
+                                   Margin="8,0,0,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"
+                                   />
                     </StackPanel>
 
                 </StackPanel>

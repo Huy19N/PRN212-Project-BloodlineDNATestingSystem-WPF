@@ -75,16 +75,6 @@
                             </StackPanel>
                         </RadioButton>
                     </StackPanel>
-                    <!-- Blog -->
-                    <StackPanel>
-                        <RadioButton x:Name="btnBlog" GroupName="nav" Style="{StaticResource menuButton}"
-                     Tag="{StaticResource color9}" Click="btnBlog_Click" >
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="Blogger" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Blog" Style="{StaticResource menuButtonText}"/>
-                            </StackPanel>
-                        </RadioButton>
-                    </StackPanel>
 
                     <!-- Logout -->
                     <StackPanel>

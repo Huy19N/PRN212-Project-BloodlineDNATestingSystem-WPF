@@ -74,5 +74,17 @@ namespace WpfApp.Views.Customer
                 customerWindow.MainContent.Content = bookingForm;
             }
         }
+
+        private void btnView_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.CommandParameter is Booking booking)
+            {
+                
+            }
+            else
+            {
+                MessageBox.Show("Invalid booking data.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

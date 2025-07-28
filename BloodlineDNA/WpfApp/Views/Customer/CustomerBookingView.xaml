@@ -94,19 +94,20 @@
                         <GridViewColumn Header="Method" DisplayMemberBinding="{Binding Method.MethodName}" />
                         <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Result.ResultSummary}" />
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status.StatusName}" />
-                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
+                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding AppointmentTime}" />
                         <GridViewColumn Header="Action">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Width="30" Height="30"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Cursor="Hand"
-                                    ToolTip="Edit"
-                                    Style="{StaticResource btnInLVStyle}"
-                                    Tag="{StaticResource buttonHoverColor5}">
-                                        <fa:IconImage Icon="PenToSquare"
-                                      Style="{StaticResource btnIconLVStyle}"/>
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            ToolTip="Edit"
+                                            Style="{StaticResource btnInLVStyle}"
+                                            Tag="{StaticResource buttonHoverColor5}"
+                                            CommandParameter="{Binding}" Click="btnView_Click">
+                                            <fa:IconImage Icon="PenToSquare"
+                                              Style="{StaticResource btnIconLVStyle}"/>
                                     </Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

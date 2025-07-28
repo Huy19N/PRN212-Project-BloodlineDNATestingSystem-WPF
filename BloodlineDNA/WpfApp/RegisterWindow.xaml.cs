@@ -108,5 +108,19 @@ namespace WpfApp
 
 
         }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                LoginWindow lw = new LoginWindow();
+                lw.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi không thể quay lại đăng nhập!");
+            }
+        }
     }
 }
