@@ -55,8 +55,25 @@ namespace WpfApp.Views
         }
 
 
-        private void btnAddResult_Click(object sender, RoutedEventArgs e)
+        private void btnUpdateResult_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (lvBooking.SelectedItem is Booking booking)
+                {
+                    new CUDWindow(new Views.CUD.CUDBooking(booking.BookingId)).ShowDialog();
+                    int currentPage = int.TryParse(txbCurrentPage?.Text, out int tempPage) ? tempPage : 1;
+                    LoadData(txtSearch.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], currentPage);
+                }
+                else
+                {
+                    MessageBox.Show("Please select a booking to add a result.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -77,6 +94,9 @@ namespace WpfApp.Views
             if(sender is Button btn && btn.CommandParameter is Booking booking)
             {
                 MessageBox.Show($"Edit booking with ID: {booking.BookingId}", "Edit Booking", MessageBoxButton.OK, MessageBoxImage.Information);
+                new CUDWindow(new Views.CUD.CUDBooking(booking.BookingId)).ShowDialog();
+                int currentPage = int.TryParse(txbCurrentPage?.Text, out int tempPage) ? tempPage : 1;
+                LoadData(txbCurrentPage.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], currentPage);
             }
             else
             {

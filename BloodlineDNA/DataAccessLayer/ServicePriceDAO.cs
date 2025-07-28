@@ -49,6 +49,11 @@ namespace DataAccessLayer
                 .ToList();
         }
 
+        public ServicePrice? GetServicePriceByServiceAndDuration(int serviceId, int durationId)
+        {
+            return context.ServicePrices
+                .FirstOrDefault(sp => sp.ServiceId == serviceId && sp.DurationId == durationId);
+        }
         public List<ServicePrice>? GetAllAvailableServicePrices()
         {
             return context.ServicePrices

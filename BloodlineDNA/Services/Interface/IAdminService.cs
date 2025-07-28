@@ -15,5 +15,8 @@ namespace Services.Interface
         List<Sample>? GetAllSamples();
         List<Status>? GetAllStatuses();
         List<CollectionMethod>? GetAllCollectionMethods();
+        ServicePrice? GetServicePriceByServiceAndDuration(int serviceId, int durationId);
+        bool deleteBookingById(int bookingId);
+        bool UpdateBookingWithPatients(Booking booking);
     }
 }

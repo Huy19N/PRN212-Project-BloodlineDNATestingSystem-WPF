@@ -77,10 +77,9 @@ namespace WpfApp.Views.Customer
                 {
                     UserId = _currentUserId.UserId,
                     ServicePriceId = (int)cbServicePrice.SelectedValue,
-                    AppointmentTime = dpAppointmentDate.SelectedDate.Value,
                     MethodId = 3,
                     StatusId = 1,
-                    Date = DateTime.Now
+                    Date = dpAppointmentDate.SelectedDate.Value
                 };
                 _bookingService.AddBooking(booking);
 

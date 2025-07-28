@@ -53,15 +53,15 @@
                 Tag="{StaticResource buttonHoverColor1}"
                 Margin="10,0,10,0">
             </Button>
-            <Button x:Name="btnAddResult"
+            <Button x:Name="btnUpdateResult"
                 Grid.Column="2"                            
-                Content="Add Result"            
+                Content="Update Result"            
                 FontSize="{StaticResource Title3}"
                 FontFamily="Montserrat"
                 Cursor="Hand"
                 BorderThickness="0"
                 Foreground="White"
-                VerticalAlignment="Top" Click="btnAddResult_Click"
+                VerticalAlignment="Top" Click="btnUpdateResult_Click"
                 Style="{StaticResource btnInLVStyle}"
                 Background="{StaticResource buttonColor4}"
                 Tag="{StaticResource buttonHoverColor4}"
@@ -93,7 +93,7 @@
                         <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding ServicePrice.Duration.DurationName}" />
                         <GridViewColumn Header="Service" DisplayMemberBinding="{Binding ServicePrice.Service.ServiceType}" />
                         <GridViewColumn Header="Method" DisplayMemberBinding="{Binding Method.MethodName}" />
-                        <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Result.ResultSummary}"/>
+                        <GridViewColumn Header="Result" DisplayMemberBinding="{Binding TestResult.ResultSummary}"/>
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status.StatusName}" />
                         <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date, StringFormat='dd/MM/yyyy'}" />
                         <GridViewColumn Header="Edit">

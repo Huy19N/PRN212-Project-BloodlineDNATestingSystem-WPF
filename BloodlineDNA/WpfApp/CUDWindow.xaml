@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="CUDWindow" Height="450" Width="800"
+        Title="CUDWindow" Height="500" Width="900"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         WindowStyle="None"
         ResizeMode="CanResize"
-        Background="White">
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen">
+    <ContentControl x:Name="MainContent">
+
+
+    </ContentControl>
 </Window>

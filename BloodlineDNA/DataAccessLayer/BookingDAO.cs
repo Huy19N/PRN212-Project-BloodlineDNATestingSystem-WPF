@@ -21,7 +21,7 @@ namespace DataAccessLayer
         {
             try
             {
-                return context.Bookings
+                var booking = context.Bookings
                     .Include(b => b.ServicePrice)
                         .ThenInclude(sp => sp.Service)
                     .Include(b => b.ServicePrice)
@@ -31,6 +31,8 @@ namespace DataAccessLayer
                     .Include(b => b.Status)
                     .Include(b => b.TestResult)
                     .FirstOrDefault(b => b.BookingId == id);
+                context.Entry(booking).State = EntityState.Detached;
+                return booking;
             }
             catch (Exception ex)
             {
@@ -47,6 +49,7 @@ namespace DataAccessLayer
         public bool DeleteBooking(Booking booking)
         {
             context.Bookings.Remove(booking);
+
             return context.SaveChanges() > 0;
         }
 
@@ -56,7 +59,7 @@ namespace DataAccessLayer
             return context.SaveChanges() > 0;
         }
 
-        public async Task<ReturnData> GetAndSearchBooking(string? key,int numberRecordsEachPage, int currentPage)
+        public async Task<ReturnData> GetAndSearchBooking(string? key, int numberRecordsEachPage, int currentPage)
         {
             try
             {
@@ -84,7 +87,7 @@ namespace DataAccessLayer
                 var pagedData = await query.Skip((currentPage - 1) * numberRecordsEachPage)
                                            .Take(numberRecordsEachPage)
                                            .ToListAsync();
-                
+
                 return new ReturnData()
                 {
                     currentPage = currentPage,
@@ -93,7 +96,7 @@ namespace DataAccessLayer
                     Data = pagedData
                 };
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new Exception(ex.InnerException?.Message ?? ex.Message);
 
@@ -120,6 +123,73 @@ namespace DataAccessLayer
             return context.Bookings
                 .Where(b => b.StatusId == statusId)
                 .ToList();
+        }
+        public bool deleteBookingById(int bookingId)
+        {
+            var booking = context.Bookings.Find(bookingId);
+            if (booking == null)
+            {
+                return false;
+            }
+            context.TestResults.Remove(context.TestResults.Find(bookingId));
+            context.Patients.RemoveRange(context.Patients.Where(p => p.BookingId == bookingId));
+            context.Bookings.Remove(booking);
+            return context.SaveChanges() > 0;
+        }
+
+        public bool UpdateBookingWithPatients(Booking booking)
+        {
+            try
+            {
+                var existingBooking = context.Bookings
+                    .Include(b => b.Patients)
+                    .Include(b => b.TestResult)
+                    .FirstOrDefault(b => b.BookingId == booking.BookingId);
+                if (existingBooking == null)
+                    return false;
+
+                existingBooking.ServicePriceId = booking.ServicePriceId;
+                existingBooking.MethodId = booking.MethodId;
+                existingBooking.StatusId = booking.StatusId;
+                existingBooking.Date = booking.Date;
+
+                existingBooking.Patients.Clear();
+                foreach (var patient in booking.Patients)
+                {
+                    var trackedPatient = context.Patients.Local
+                        .FirstOrDefault(p => p.PatientId == patient.PatientId)
+                        ?? context.Patients.Find(patient.PatientId);
+
+                    if (trackedPatient != null)
+                        existingBooking.Patients.Add(trackedPatient);
+                    else
+                        existingBooking.Patients.Add(patient);
+                }
+
+                if (booking.TestResult != null)
+                {
+                    var existingTestResult = context.TestResults
+                        .FirstOrDefault(tr => tr.BookingId == booking.BookingId);
+
+                    if (existingTestResult != null)
+                    {
+
+                        existingTestResult.ResultSummary = booking.TestResult.ResultSummary;
+                        existingTestResult.Date = booking.TestResult.Date;
+                    }
+                    else
+                    {
+                        booking.TestResult.BookingId = booking.BookingId;
+                        context.TestResults.Add(booking.TestResult);
+                    }
+                }
+
+                return context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.InnerException?.Message ?? ex.Message);
+            }
         }
     }
 }

@@ -19,9 +19,10 @@ namespace WpfApp
     /// </summary>
     public partial class CUDWindow : Window
     {
-        public CUDWindow()
+        public CUDWindow(UserControl content)
         {
             InitializeComponent();
+            MainContent.Content = content;
         }
     }
 }

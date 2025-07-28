@@ -47,9 +47,14 @@ namespace Repositories
             return servicePriceDAO.UpdateServicePrice(servicePrice);
         }
 
-        public List<ServicePrice> GetAllAvailableServicePrices()
+        public List<ServicePrice>? GetAllAvailableServicePrices()
         {
                 return servicePriceDAO.GetAllAvailableServicePrices();
+        }
+
+        public ServicePrice? GetServicePriceByServiceAndDuration(int serviceId, int durationId)
+        {
+            return servicePriceDAO.GetServicePriceByServiceAndDuration(serviceId, durationId);
         }
     }
 }

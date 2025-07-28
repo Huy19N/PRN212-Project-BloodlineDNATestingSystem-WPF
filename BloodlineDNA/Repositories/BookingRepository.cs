@@ -58,5 +58,14 @@ namespace Repositories
         {
             return BookingDAO.UpdateBooking(booking);
         }
+
+        public bool deleteBookingById(int bookingId)
+        {
+            return BookingDAO.deleteBookingById(bookingId);
+        }
+        public bool UpdateBookingWithPatients(Booking booking)
+        {
+            return BookingDAO.UpdateBookingWithPatients(booking);
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace Repositories.Interface
         public List<ServicePrice> GetServicePricesByServiceId(int serviceId);
         public List<ServicePrice> GetServicePricesByDurationId(int durationId);
         List<ServicePrice>? GetAllAvailableServicePrices();
+        ServicePrice? GetServicePriceByServiceAndDuration(int serviceId, int durationId);
     }
 }

@@ -56,7 +56,9 @@
                                FontFamily="{StaticResource Montserrat}"
                                FontSize="{StaticResource Title3}"
                                Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cmbDuration" SelectedIndex="0" Foreground="{StaticResource titleColor3}"/>
+                    <ComboBox x:Name="cmbDuration" SelectedIndex="0" 
+                              Foreground="{StaticResource titleColor3}"
+                              SelectionChanged="cmbDuration_SelectionChanged"/>
                 </DockPanel>
                 <!--price-->
                 <DockPanel Margin="0,0,0,5"  
@@ -80,7 +82,10 @@
                                FontFamily="{StaticResource Montserrat}"
                                FontSize="{StaticResource Title3}"
                                Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cmbService" SelectedIndex="0" Foreground="{StaticResource titleColor3}"/>
+                    <ComboBox x:Name="cmbService" 
+                              SelectedIndex="0" 
+                              Foreground="{StaticResource titleColor3}"
+                              SelectionChanged="cmbService_SelectionChanged"/>
                 </DockPanel>
 
             </Grid>
@@ -303,6 +308,56 @@
                          BorderThickness="0,0,0,1"
                          Background="Transparent"/>
             </DockPanel>
+            
+            <!-- Button -->
+            <StackPanel Grid.Row="5"
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Center">
+                <Button x:Name="btnUpdate"
+                        Content="Update"
+                        Width="70"
+                        Height="30"
+                        FontFamily="{StaticResource Montserrat}"
+                        FontSize="{StaticResource Title3}"
+                        Foreground="{StaticResource titleColor1}"
+                        Background="{StaticResource buttonColor2}"
+                        Tag="{StaticResource buttonHoverColor2}"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Style="{StaticResource btnInLVStyle}"
+                        Click="btnUpdate_Click"
+                        Margin="0,0,10,0"/>
+                <Button x:Name="btnDeletet"
+                        Content="Deletet"
+                        Width="70"
+                        Height="30"
+                        FontFamily="{StaticResource Montserrat}"
+                        FontSize="{StaticResource Title3}"
+                        Foreground="{StaticResource titleColor1}"
+                        Background="{StaticResource buttonColor4}"
+                        Tag="{StaticResource buttonHoverColor2}"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Style="{StaticResource btnInLVStyle}"
+                        Click="btnDeletet_Click"
+                        Margin="0,0,10,0"/>
+                <Button x:Name="btnCancel"
+                        Content="Cancel"
+                        Width="70"
+                        Height="30"
+                        FontFamily="{StaticResource Montserrat}"
+                        FontSize="{StaticResource Title3}"
+                        Foreground="{StaticResource titleColor1}"
+                        Background="{StaticResource buttonColor5}"
+                        Tag="{StaticResource buttonHoverColor2}"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Style="{StaticResource btnInLVStyle}"
+                        Click="btnCancel_Click"/>
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>
