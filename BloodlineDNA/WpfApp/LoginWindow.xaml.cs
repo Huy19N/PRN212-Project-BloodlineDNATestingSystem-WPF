@@ -74,7 +74,7 @@ namespace WpfApp
             }
             else if(user.RoleId == 1)
             {
-                CustomerWindow cw = new CustomerWindow();
+                CustomerWindow cw = new CustomerWindow(user);
                 cw.Show();
                 this.Close();
             }

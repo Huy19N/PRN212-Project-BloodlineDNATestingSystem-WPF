@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BusinessObjects;
+using Services;
 
 namespace WpfApp
 {
@@ -19,9 +21,15 @@ namespace WpfApp
     /// </summary>
     public partial class CustomerWindow : Window
     {
+        public User Customer { get; set; }
+
         public CustomerWindow()
         {
             InitializeComponent();
+        }
+        public CustomerWindow(User userId) : this() 
+        {
+            Customer = userId;
         }
 
         private void ControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -48,6 +56,36 @@ namespace WpfApp
             else 
             {
                 WindowState = WindowState.Maximized;
+            }
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBooking_Click(object sender, RoutedEventArgs e)
+        {
+            var booking = new Views.Customer.CustomerBookingView(Customer);
+            MainContent.Content = booking;
+        }
+
+        private void btnBlog_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                LoginWindow lw = new LoginWindow();
+                lw.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi Đăng Xuất: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

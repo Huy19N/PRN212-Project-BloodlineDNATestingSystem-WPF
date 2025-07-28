@@ -53,15 +53,15 @@
             Tag="{StaticResource buttonHoverColor1}"
             Margin="10,0,10,0">
             </Button>
-            <Button x:Name="btnAddResult"
+            <Button x:Name="btnAddBooking"
             Grid.Column="2"                            
-            Content="Add Result"            
+            Content="Add Booking"            
             FontSize="12"
             FontFamily="Montserrat"
             Cursor="Hand"
             BorderThickness="0"
             Foreground="White"
-            VerticalAlignment="Top" Click="btnAddResult_Click"
+            VerticalAlignment="Top" Click="btnAddBooking_Click"
             Style="{StaticResource btnInLVStyle}"
             Background="{StaticResource buttonColor4}"
             Tag="{StaticResource buttonHoverColor4}"
@@ -89,14 +89,13 @@
                 <ListView.View>
                     <GridView >
                         <GridViewColumn Header="BookingID" DisplayMemberBinding="{Binding BookingId}" />
-                        <GridViewColumn Header="UserID" DisplayMemberBinding="{Binding UserId}" />
+                        <GridViewColumn Header="User Name" DisplayMemberBinding="{Binding User.FullName}" />
                         <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding ServicePrice.Duration.DurationName}" />
-                        <GridViewColumn Header="Service" DisplayMemberBinding="{Binding ServicePrice.Service.ServiceName}" />
                         <GridViewColumn Header="Method" DisplayMemberBinding="{Binding Method.MethodName}" />
                         <GridViewColumn Header="Result" DisplayMemberBinding="{Binding Result.ResultSummary}" />
                         <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status.StatusName}" />
                         <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" />
-                        <GridViewColumn Header="Edit">
+                        <GridViewColumn Header="Action">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Width="30" Height="30"

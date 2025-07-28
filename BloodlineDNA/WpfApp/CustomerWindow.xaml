@@ -9,11 +9,11 @@
         WindowStyle="None"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        Title="CustomerWindow" Height="450" Width="800">
-    
+        Title="CustomerWindow" Height="725" Width="1188">
+
     <Border BorderThickness="1"
             CornerRadius="10">
-        
+
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
@@ -28,7 +28,7 @@
                 <!-- Main -->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!-- Nav -->
             <Border CornerRadius="10,0,0,10"
                     Grid.Column="0">
@@ -36,12 +36,67 @@
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                         <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0"/>
                         <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
-                        
+
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <!--TabBar-->
-                
+                <StackPanel>
+                    <!-- Logo -->
+                    <StackPanel Orientation="Horizontal"
+                Height="35"
+                Margin="15,25,0 40">
+                        <Image Source="/Images/bgLogin.jpg"/>
+                        <TextBlock Text="GenCare" 
+                   Foreground="{StaticResource titleColor1}"
+                   FontFamily="{StaticResource Montserrat}"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                    <!-- Menu -->
+                    <!-- Dashboard -->
+                    <StackPanel>
+                        <RadioButton x:Name="btnHome" GroupName="nav" Style="{StaticResource menuButton}"
+                     Tag="{StaticResource color1}" Click="btnHome_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <!-- Booking -->
+                    <StackPanel>
+                        <RadioButton x:Name="btnBooking" GroupName="nav"  Style="{StaticResource menuButton}"
+                     Tag="{StaticResource color2}" Click="btnBooking_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Dna" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Booking" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <!-- Blog -->
+                    <StackPanel>
+                        <RadioButton x:Name="btnBlog" GroupName="nav" Style="{StaticResource menuButton}"
+                     Tag="{StaticResource color9}" Click="btnBlog_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Blogger" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Blog" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <!-- Logout -->
+                    <StackPanel>
+                        <RadioButton x:Name="btnLogout" GroupName="nav" Style="{StaticResource menuButton}"
+                     Tag="{StaticResource color4}" Click="btnLogout_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="DoorOpen" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Logout" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                </StackPanel>
             </Border>
 
             <!-- Main -->
@@ -53,8 +108,8 @@
                         <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                
-                
+
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <!-- Control bar -->
@@ -64,7 +119,7 @@
                         <!-- Content -->
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <!-- Control bar -->
                     <StackPanel x:Name="ControlBar"
                                 Orientation="Horizontal"
@@ -79,7 +134,7 @@
                                 Click="btnClose_Click"
                                 Tag ="{StaticResource closeWindowControlColor}"
                                 Style="{StaticResource windowControlButton}"
-                                Margin="0,0,5,0">           
+                                Margin="0,0,5,0">
                             <fa:IconImage Icon="Xmark" 
                                           Height="10"
                                           Foreground="White"/>
@@ -91,7 +146,7 @@
                                 Click="btnMinimize_Click"
                                 Style="{StaticResource windowControlButton}"
                                 Tag="{StaticResource minimizeWindowControlColor}"
-                                Margin="0,0,5,0">           
+                                Margin="0,0,5,0">
                             <fa:IconImage Icon="Minus" 
                                           Width="10"
                                           Foreground="White"/>
@@ -107,10 +162,11 @@
                                           Foreground="White"/>
                         </Button>
                     </StackPanel>
+                    <ContentControl x:Name="MainContent" Grid.Row="2"/>
                 </Grid>
             </Border>
-            
+
         </Grid>
-        
+
     </Border>
 </Window>

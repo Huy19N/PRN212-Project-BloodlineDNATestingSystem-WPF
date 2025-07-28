@@ -26,6 +26,9 @@
     <Compile Update="Views\CUD\CUDBooking.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Customer\BookingFormView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Customer\CustomerBookingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="WpfApp.Views.Customer.BookingFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" Background="Transparent" d:DesignWidth="800" Height="626">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Text="Booking DNA Test" 
+                   Foreground="White" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <!-- Form -->
+        <StackPanel Grid.Row="1" Orientation="Vertical" >
+
+            <!-- Service Selection -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Service:" Width="150" VerticalAlignment="Center" Foreground="White"/>
+                <ComboBox x:Name="cbServicePrice" Width="300" 
+                          DisplayMemberPath="DisplayName" 
+                          SelectedValuePath="ServicePriceID"
+                          Background="#330066" Foreground="White"/>
+            </StackPanel>
+
+            <!-- Appointment Date -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Appointment Date:" Width="150" VerticalAlignment="Center" Foreground="White"/>
+                <DatePicker x:Name="dpAppointmentDate" Width="300" Background="#330066" Foreground="Black"/>
+            </StackPanel>
+
+            <!-- Person 1 -->
+            <GroupBox Header="Person 1 Info" Foreground="White" Background="#220044">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Name: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtPerson1Name" Background="#330066" Foreground="White"/>
+                    <TextBlock Text="Gender: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtGender1" Background="#330066" Foreground="White"/>
+                    <TextBlock Text="BirthDay: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,5"/>
+                    <DatePicker x:Name="dpPerson1Birth" Width="745" Background="#330066" Foreground="Black"/>
+                    <TextBlock Text="CCCD: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtPerson1ID" Background="#330066" Foreground="White"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Person 2 -->
+            <GroupBox Header="Person 2 Info" Foreground="White" Background="#220044" Margin="0,10,0,0">
+                <StackPanel Margin="10" >
+                    <TextBlock Text="Name: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtPerson2Name"  Background="#330066" Foreground="White"/>
+                    <TextBlock Text="Gender: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,0,0,5"/>
+                    <TextBox x:Name="txtGender2" Background="#330066" Foreground="White"/>
+                    <TextBlock Text="BirthDay: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,5"/>
+                    <DatePicker x:Name="dpPerson2Birth" Width="745" Background="#330066" Foreground="Black"/>
+                    <TextBlock Text="CCCD: " Width="150" Foreground="White" HorizontalAlignment="Left" Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtPerson2ID" Background="#330066" Foreground="White"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Submit -->
+            <Button x:Name="btnSubmit" 
+                    Content="Submit Booking" 
+                    Background="#6600CC" 
+                    Foreground="White" 
+                    FontWeight="Bold" 
+                    Width="200"
+                    Click="btnSubmit_Click"
+                    HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
