@@ -9,7 +9,7 @@ namespace Repositories.Interface
 {
     public interface IStatusRepository
     {
-        public List<Status> GetAllStatuses();
+        public List<Status>? GetAllStatuses();
         public Status GetStatusById(int id);
         public bool AddStatus(Status status);
         public bool DeleteStatus(Status status);

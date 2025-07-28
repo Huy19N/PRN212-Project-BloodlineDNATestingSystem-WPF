@@ -10,7 +10,7 @@ namespace Repositories.Interface
     public interface IBookingRepository
     {
         public List<Booking> GetAllBookings();
-        public Booking GetBookingById(int id);
+        public Booking? GetBookingById(int id);
         public bool AddBooking(Booking booking);
         public bool DeleteBooking(Booking booking);
         public bool UpdateBooking(Booking booking);

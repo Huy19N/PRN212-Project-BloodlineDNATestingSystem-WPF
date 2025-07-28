@@ -10,6 +10,10 @@ namespace Services.Interface
     public interface IAdminService
     {
         Task<ReturnData> GetAndSearchBooking(string key, int numberRecordsEachPage, int currentPage);
-
+        Booking? GetBookingById(int id);
+        List<ServicePrice>? GetAllAvailableServicePrices();
+        List<Sample>? GetAllSamples();
+        List<Status>? GetAllStatuses();
+        List<CollectionMethod>? GetAllCollectionMethods();
     }
 }

@@ -21,7 +21,7 @@ namespace Repositories
             return CollectionMethodDAO.DeleteCollectionMethod(collectionMethod);
         }
 
-        public List<CollectionMethod> GetCollectionAll()
+        public List<CollectionMethod>? GetCollectionAll()
         {
             return CollectionMethodDAO.GetCollectionAll();
         }

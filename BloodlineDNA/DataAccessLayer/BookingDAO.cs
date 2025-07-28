@@ -17,9 +17,25 @@ namespace DataAccessLayer
             return context.Bookings.ToList();
         }
 
-        public Booking GetBookingById(int id)
+        public Booking? GetBookingById(int id)
         {
-            return context.Bookings.FirstOrDefault(b => b.BookingId == id);
+            try
+            {
+                return context.Bookings
+                    .Include(b => b.ServicePrice)
+                        .ThenInclude(sp => sp.Service)
+                    .Include(b => b.ServicePrice)
+                        .ThenInclude(sp => sp.Duration)
+                    .Include(b => b.Method)
+                    .Include(b => b.Patients)
+                    .Include(b => b.Status)
+                    .Include(b => b.TestResult)
+                    .FirstOrDefault(b => b.BookingId == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.InnerException?.Message ?? ex.Message);
+            }
         }
 
         public bool AddBooking(Booking booking)
@@ -39,6 +55,7 @@ namespace DataAccessLayer
             context.Bookings.Update(booking);
             return context.SaveChanges() > 0;
         }
+
         public async Task<ReturnData> GetAndSearchBooking(string? key,int numberRecordsEachPage, int currentPage)
         {
             try
@@ -82,7 +99,6 @@ namespace DataAccessLayer
 
             }
         }
-
         public List<Booking> GetBookingsByUserID(int userId)
         {
             return context.Bookings

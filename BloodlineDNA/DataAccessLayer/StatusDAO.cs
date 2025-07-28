@@ -10,7 +10,7 @@ namespace DataAccessLayer
     public class StatusDAO
     {
         GeneCarePrnContext context = new GeneCarePrnContext();
-        public List<Status> GetAllStatuses()
+        public List<Status>? GetAllStatuses()
         {
             return context.Statuses.ToList();
         }

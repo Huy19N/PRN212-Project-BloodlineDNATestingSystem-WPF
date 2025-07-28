@@ -9,7 +9,7 @@ namespace Repositories.Interface
 {
     public interface ISampleRepository
     {
-        public List<Sample> GetAllSamples();
+        public List<Sample>? GetAllSamples();
         public Sample GetSampleById(int id);
         public bool AddSample(Sample sample);
         public bool DeleteSample(Sample sample);

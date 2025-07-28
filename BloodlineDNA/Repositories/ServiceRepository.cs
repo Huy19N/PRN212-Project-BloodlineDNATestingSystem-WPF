@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects;
 using DataAccessLayer;
+using Repositories.Interface;
 
 namespace Repositories
 {
-    public class ServiceRepository : Interface.IServiceRepository
+    public class ServiceRepository : IServiceRepository
     {
         ServiceDAO serviceDAO = new ServiceDAO();
         public bool AddService(Service service)

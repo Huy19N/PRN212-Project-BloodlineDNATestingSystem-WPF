@@ -21,7 +21,7 @@ namespace Repositories
             return statusDAO.DeleteStatus(status);
         }
 
-        public List<Status> GetAllStatuses()
+        public List<Status>? GetAllStatuses()
         {
             return statusDAO.GetAllStatuses();
         }

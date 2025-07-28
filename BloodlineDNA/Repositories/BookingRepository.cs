@@ -27,7 +27,7 @@ namespace Repositories
             return BookingDAO.GetAllBookings();
         }
 
-        public Booking GetBookingById(int id)
+        public Booking? GetBookingById(int id)
         {
             return BookingDAO.GetBookingById(id);
         }

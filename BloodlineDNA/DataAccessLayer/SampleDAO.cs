@@ -10,7 +10,7 @@ namespace DataAccessLayer
     public class SampleDAO
     {
         GeneCarePrnContext context = new GeneCarePrnContext();
-            public List<Sample> GetAllSamples()
+            public List<Sample>? GetAllSamples()
             {
                 return context.Samples.ToList();
             }

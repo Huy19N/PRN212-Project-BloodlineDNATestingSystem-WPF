@@ -11,7 +11,7 @@ namespace DataAccessLayer
     {
         GeneCarePrnContext context = new GeneCarePrnContext();
 
-        public List<CollectionMethod> GetCollectionAll() => context.CollectionMethods.ToList();
+        public List<CollectionMethod>? GetCollectionAll() => context.CollectionMethods.ToList();
         public CollectionMethod GetCollectionMethodById(int id) => context.CollectionMethods.FirstOrDefault(x => x.MethodId == id);
         public bool AddCollectionMethod(CollectionMethod collectionMethod)
         {

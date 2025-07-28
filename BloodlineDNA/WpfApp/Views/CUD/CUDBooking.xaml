@@ -16,29 +16,21 @@
             <Grid.RowDefinitions>
                 <!-- Title -->
                 <RowDefinition Height="50"/>
-                <!-- Type -->
+                <!-- Duration, price and Service Type -->
                 <RowDefinition Height="50"/>
                 <!-- Patient -->
                 <RowDefinition Height="1*"/>
+                <!-- Booking date, Status, CollectionMethod, -->
+                <RowDefinition Height="50"/>
+                <!-- Result -->
+                <RowDefinition Height="50"/>
                 <!-- Button -->
-                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
-            
-            <!-- name -->
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="0"
-                        HorizontalAlignment="Center">
-                <TextBlock x:Name="txtPName1" Text="Booking"
-                           FontSize="{StaticResource Title1}"
-                           FontWeight="Bold"
-                           Foreground="{StaticResource titleColor1}"
-                           FontFamily="{StaticResource Montserrat}"
-                           VerticalAlignment="Center"
-                           Margin="10"/>
-            </StackPanel>
-            <!-- age -->
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="0"
+
+            <!-- Title -->
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Booking"
                            FontSize="{StaticResource Title1}"
@@ -49,13 +41,58 @@
                            Margin="10"/>
             </StackPanel>
 
+            <!-- Duration, price and Service Type -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!--Duration-->
+                <DockPanel Margin="0,0,0,5"  
+                           VerticalAlignment="Center"
+                           Grid.Column="0">
+                    <TextBlock Text="Duration: "
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cmbDuration" SelectedIndex="0" Foreground="{StaticResource titleColor3}"/>
+                </DockPanel>
+                <!--price-->
+                <DockPanel Margin="0,0,0,5"  
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Grid.Column="1">
+                    <TextBlock Text="Money: "
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                    <TextBlock Name="txtMoney"
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                </DockPanel>
+                <!--Service Type-->
+                <DockPanel Margin="0,0,0,5"  
+                           VerticalAlignment="Center"
+                           Grid.Column="2">
+                    <TextBlock Text="Service: "
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cmbService" SelectedIndex="0" Foreground="{StaticResource titleColor3}"/>
+                </DockPanel>
+
+            </Grid>
+
+            <!-- Patients -->
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <!-- Patient 1 -->
-                
+
                 <StackPanel Grid.Column="0" Margin="10" 
                             Orientation="Vertical">
                     <TextBlock Text="Patient 1"
@@ -63,28 +100,209 @@
                                FontSize="{StaticResource Title3}"
                                Foreground="{StaticResource titleColor2}"
                                HorizontalAlignment="Center"/>
-                    <!-- -->
-                    <DockPanel>
-                        <TextBlock Text="Name: "
+                    <!-- Name -->
+                    <DockPanel Margin="0,0,0,5">
+                        <TextBlock Text="Full Name: "
                                    FontFamily="{StaticResource Montserrat}"
                                    FontSize="{StaticResource Title3}"
                                    Foreground="{StaticResource titleColor2}"
-                                   Margin="0,0,0,5"/>
-                        <TextBox x:Name="txtUserName"
+                                   VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtPName1"
                                  FontSize="{StaticResource Title3}"
                                  FontFamily="{StaticResource Montserrat}"
                                  Foreground="{StaticResource titleColor3}"
                                  CaretBrush="LightGray"
                                  BorderBrush="DarkGray"
                                  BorderThickness="0,0,0,1"
-                                 Background="Transparent"
-                                 VerticalAlignment="Center"/>
-                    </DockPanel>                    
+                                 Background="Transparent"/>
+                    </DockPanel>
+                    <!-- Birthday -->
+                    <DockPanel Margin="0,0,0,5" >
+                        <TextBlock Text="Brithday: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <DatePicker x:Name="txtPDate1" Background="Transparent"
+                                    SelectedDate="{Binding MyDate, Mode=TwoWay}"
+                                    Text="{Binding MayDate, StringFormat=dd/MM/yyyy}"/>
+                    </DockPanel>
+                    <!-- Gender -->
+                    <DockPanel Margin="0,0,0,5" >
+                        <TextBlock Text="Gender: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtPGender1"
+                                 FontSize="{StaticResource Title3}"
+                                 FontFamily="{StaticResource Montserrat}"
+                                 Foreground="{StaticResource titleColor3}"
+                                 CaretBrush="LightGray"
+                                 BorderBrush="DarkGray"
+                                 BorderThickness="0,0,0,1"
+                                 Background="Transparent"/>
+                    </DockPanel>
+                    <!-- Sample -->
+                    <DockPanel Margin="0,0,0,5" >
+                        <TextBlock Text="Sample: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cmbPSample1" Foreground="{StaticResource titleColor3}">
+                        </ComboBox>
+                    </DockPanel>
+                    <!-- Identify Id-->
+                    <DockPanel Margin="0,0,0,5">
+                        <TextBlock Text="Identify Id: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtPID1"
+                                 FontSize="{StaticResource Title3}"
+                                 FontFamily="{StaticResource Montserrat}"
+                                 Foreground="{StaticResource titleColor3}"
+                                 CaretBrush="LightGray"
+                                 BorderBrush="DarkGray"
+                                 BorderThickness="0,0,0,1"
+                                 Background="Transparent"/>
+                    </DockPanel>
                 </StackPanel>
+
+                <!-- Patient 2 -->
+
+                <StackPanel Grid.Column="1" Margin="10" 
+            Orientation="Vertical">
+                    <TextBlock Text="Patient 2"
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}"
+                               HorizontalAlignment="Center"/>
+                    <!-- Name -->
+                    <DockPanel Margin="0,0,0,5">
+                        <TextBlock Text="Identify Id: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}"
+                                   VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtPName2"
+                                 FontSize="{StaticResource Title3}"
+                                 FontFamily="{StaticResource Montserrat}"
+                                 Foreground="{StaticResource titleColor3}"
+                                 CaretBrush="LightGray"
+                                 BorderBrush="DarkGray"
+                                 BorderThickness="0,0,0,1"
+                                 Background="Transparent"/>
+                    </DockPanel>
+                    <!-- Birthday -->
+                    <DockPanel Margin="0,0,0,5" >
+                        <TextBlock Text="Brithday: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <DatePicker x:Name="txtPDate2" Background="Transparent"
+                                    SelectedDate="{Binding MyDate, Mode=TwoWay}"
+                                    Text="{Binding MayDate, StringFormat=dd/MM/yyyy}"/>
+                    </DockPanel>
+                    <!-- Gender -->
+                    <DockPanel Margin="0,0,0,5" >
+                        <TextBlock Text="Gender: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtPGender2"
+                                 FontSize="{StaticResource Title3}"
+                                 FontFamily="{StaticResource Montserrat}"
+                                 Foreground="{StaticResource titleColor3}"
+                                 CaretBrush="LightGray"
+                                 BorderBrush="DarkGray"
+                                 BorderThickness="0,0,0,1"
+                                 Background="Transparent"/>
+                    </DockPanel>
+                    <!-- Sample -->
+                    <DockPanel Margin="0,0,0,5" >
+                        <TextBlock Text="Sample: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cmbPSample2" Foreground="{StaticResource titleColor3}">
+                        </ComboBox>
+                    </DockPanel>
+                    <!-- Identify Id-->
+                    <DockPanel Margin="0,0,0,5">
+                        <TextBlock Text="Identify Id: "
+                                   FontFamily="{StaticResource Montserrat}"
+                                   FontSize="{StaticResource Title3}"
+                                   Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtPID2"
+                                 FontSize="{StaticResource Title3}"
+                                 FontFamily="{StaticResource Montserrat}"
+                                 Foreground="{StaticResource titleColor3}"
+                                 CaretBrush="LightGray"
+                                 BorderBrush="DarkGray"
+                                 BorderThickness="0,0,0,1"
+                                 Background="Transparent"/>
+                    </DockPanel>
+                </StackPanel>
+
             </Grid>
 
+            <!-- Booking date, Status, CollectionMethod, -->
+            <Grid  Grid.Row="3"
+                   Margin="10" 
+                   VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Booking date -->
+                <DockPanel Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" >
+                    <TextBlock Text="Booking date: "
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="txtBookingDate" Background="Transparent"
+                                SelectedDate="{Binding MyDate, Mode=TwoWay}"
+                                Text="{Binding MayDate, StringFormat=dd/MM/yyyy}"/>
+                </DockPanel>
 
+                <!--Status-->
+                <DockPanel Grid.Column="1" Margin="0,0,10,0" VerticalAlignment="Center" >
+                    <TextBlock Text="Status: "
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cmbStatus" SelectedIndex="0" Foreground="{StaticResource titleColor3}"/>
+                </DockPanel>
 
+                <!--CollectionMethod-->
+                <DockPanel Grid.Column="2" Margin="0,0,10,0" VerticalAlignment="Center" >
+                    <TextBlock Text="CollectionMethod: "
+                               FontFamily="{StaticResource Montserrat}"
+                               FontSize="{StaticResource Title3}"
+                               Foreground="{StaticResource titleColor2}" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cmbCollectionMethod" SelectedIndex="0" Foreground="{StaticResource titleColor3}"/>
+                </DockPanel>
+            </Grid>
+
+            <!-- Result-->
+            <DockPanel Grid.Row="4"
+                       Margin="10,0,10,0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Stretch">
+                <TextBlock Text="Result: "
+                           FontFamily="{StaticResource Montserrat}"
+                           FontSize="{StaticResource Title3}"
+                           Foreground="{StaticResource titleColor2}"
+                           VerticalAlignment="Center"/>
+                <TextBox x:Name="txtResult"
+                         FontSize="{StaticResource Title3}"
+                         FontFamily="{StaticResource Montserrat}"
+                         Foreground="{StaticResource titleColor3}"
+                         CaretBrush="LightGray"
+                         BorderBrush="DarkGray"
+                         BorderThickness="0,0,0,1"
+                         Background="Transparent"/>
+            </DockPanel>
         </Grid>
     </Border>
 </UserControl>

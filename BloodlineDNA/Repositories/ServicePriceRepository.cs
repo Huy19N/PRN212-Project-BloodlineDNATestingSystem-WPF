@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects;
 using DataAccessLayer;
+using Repositories.Interface;
 
 namespace Repositories
 {
-    public class ServicePriceRepository : Interface.IServicePriceRepository
+    public class ServicePriceRepository : IServicePriceRepository
     {
         ServicePriceDAO servicePriceDAO = new ServicePriceDAO();
         public bool AddServicePrice(ServicePrice servicePrice)
@@ -44,6 +45,11 @@ namespace Repositories
         public bool UpdateServicePrice(ServicePrice servicePrice)
         {
             return servicePriceDAO.UpdateServicePrice(servicePrice);
+        }
+
+        public List<ServicePrice> GetAllAvailableServicePrices()
+        {
+                return servicePriceDAO.GetAllAvailableServicePrices();
         }
     }
 }
