@@ -55,16 +55,6 @@
                    Margin="10,0,0,0"/>
                     </StackPanel>
                     <!-- Menu -->
-                    <!-- Dashboard -->
-                    <StackPanel>
-                        <RadioButton x:Name="btnHome" GroupName="nav" Style="{StaticResource menuButton}"
-                     Tag="{StaticResource color1}" Click="btnHome_Click" >
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Home" Style="{StaticResource menuButtonText}"/>
-                            </StackPanel>
-                        </RadioButton>
-                    </StackPanel>
                     <!-- Booking -->
                     <StackPanel>
                         <RadioButton x:Name="btnBooking" GroupName="nav"  Style="{StaticResource menuButton}"
