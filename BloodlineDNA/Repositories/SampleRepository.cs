@@ -21,7 +21,7 @@ namespace Repositories
             return sampleDAO.DeleteSample(sample);
         }
 
-        public List<Sample> GetAllSamples()
+        public List<Sample>? GetAllSamples()
         {
             return sampleDAO.GetAllSamples();
         }

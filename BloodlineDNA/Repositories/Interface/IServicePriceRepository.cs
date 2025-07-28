@@ -16,6 +16,6 @@ namespace Repositories.Interface
         public bool UpdateServicePrice(ServicePrice servicePrice);
         public List<ServicePrice> GetServicePricesByServiceId(int serviceId);
         public List<ServicePrice> GetServicePricesByDurationId(int durationId);
-
+        List<ServicePrice>? GetAllAvailableServicePrices();
     }
 }

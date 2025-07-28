@@ -73,7 +73,6 @@ CREATE TABLE Booking (
     UserID INT FOREIGN KEY REFERENCES Users(UserID),
     ServicePriceID INT FOREIGN KEY REFERENCES ServicePrice(ServicePriceID),
     MethodID INT FOREIGN KEY REFERENCES CollectionMethod(MethodID),
-    AppointmentTime DATETIME,
     StatusID INT FOREIGN KEY REFERENCES [Status](StatusID),
     [Date] DATETIME
 );

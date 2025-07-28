@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
@@ -45,6 +46,15 @@ namespace DataAccessLayer
         {
             return context.ServicePrices
                 .Where(sp => sp.DurationId == durationId)
+                .ToList();
+        }
+
+        public List<ServicePrice>? GetAllAvailableServicePrices()
+        {
+            return context.ServicePrices
+                .Include(sp => sp.Service)
+                .Include(sp => sp.Duration)
+                .Where(sp => !sp.IsDeleted)
                 .ToList();
         }
     }

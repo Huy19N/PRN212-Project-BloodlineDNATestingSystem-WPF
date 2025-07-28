@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BusinessObjects;
+using Services;
+using Services.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,52 @@ namespace WpfApp.Views.CUD
     /// </summary>
     public partial class CUDBooking : UserControl
     {
-        public CUDBooking()
+        private int bookingId;
+        private IAdminService service = new AdminService();
+        private string[] lsGender = new string[] { "Male", "Female", "Other" };
+        private Patient patient1;
+        private Patient patient2;
+        public CUDBooking(int BookingId)
         {
             InitializeComponent();
+            bookingId = BookingId;
+        }
+
+        public void LoadData(int BookingId)
+        {
+
+            var booking = service.GetBookingById(BookingId);
+            if (booking != null)
+            {
+                patient1 = booking.Patients?.ToList()[0] ?? new Patient();
+                patient2 = booking.Patients?.ToList().Count > 1 ? booking.Patients?.ToList()[1] ?? new Patient() : new Patient();
+
+                txtPName1.Text = patient1.FullName;
+                txtPName2.Text = patient2.FullName;
+
+                txtPDate1.Text = patient1.BirthDate.ToString("dd/MM/yyyy");
+                txtPDate2.Text = patient2.BirthDate.ToString("dd/MM/yyyy");
+
+                txtPGender1.Text = patient1.Gender;
+                txtPGender2.Text = patient2.Gender;
+
+                cmbPSample1.ItemsSource = cmbPSample2.ItemsSource = service.GetAllSamples();
+                cmbPSample1.DisplayMemberPath = cmbPSample2.DisplayMemberPath = "SampleName";
+                cmbPSample1.SelectedItem = cmbPSample2.SelectedValuePath = "SampleId";
+
+                txtPID1.Text = patient1.IdentifyId;
+                txtPID2.Text = patient2.IdentifyId;
+
+                txtBookingDate.Text = booking.Date.ToString();
+                cmbStatus.ItemsSource = service.GetAllStatuses();
+
+                cmbCollectionMethod.ItemsSource = service.GetAllMethods();
+            }
+            else
+            {
+                MessageBox.Show("Booking not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
     }
 }
