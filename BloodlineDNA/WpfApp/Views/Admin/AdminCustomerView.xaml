@@ -146,7 +146,7 @@
                         FontSize="20"
                         SelectedIndex="0"
                         Background="{StaticResource panelOverColor}"
-                        Foreground="Black"
+                        Foreground="White"
                         BorderBrush="{x:Null}"
                         Margin="0,0,4,0">
                         <ComboBoxItem Content="10" />
