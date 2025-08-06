@@ -51,7 +51,7 @@
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Đăng Nhập"
+                <TextBlock Text="Login"
                            Foreground="DarkGray"
                            FontSize="10"
                            FontFamily="Arial"
@@ -93,7 +93,7 @@
                              FontFamily="{StaticResource Montserrat}"
                              FontSize="25"
                              HorizontalAlignment="Center"/>
-                    <TextBlock Text="Làm ơn đăng nhập trước khi sử dụng hệ thống!"
+                    <TextBlock Text="Please login before use system!"
                                Foreground="LightGray"
                                FontSize="12"
                                FontFamily="{StaticResource Montserrat}"
@@ -126,7 +126,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Mật Khẩu"
+                    <TextBlock Text="Password"
                                FontSize="12"
                                FontFamily="{StaticResource Montserrat}"
                                Foreground="Gray"
@@ -152,7 +152,7 @@
 
                     <Button x:Name="btLogin"
                             BorderThickness="0"
-                            Content="Đăng Nhập"
+                            Content="Login"
                             Foreground="White"
                             FontSize="16"
                             FontFamily="Arial"
@@ -184,7 +184,7 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 Margin="0,15,0,0">
-                        <TextBlock Text="Đăng ký"
+                        <TextBlock Text="Register"
                                    Foreground="LightGray"
                                    FontSize="12"
                                    FontFamily="{StaticResource Montserrat}"

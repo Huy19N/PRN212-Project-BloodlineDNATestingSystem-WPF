@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BusinessObjects;
 using Services;
 using Services.Interface;
+using WpfApp.Views.CUD;
 
 namespace WpfApp.Views.Customer
 {
@@ -79,7 +80,10 @@ namespace WpfApp.Views.Customer
         {
             if (sender is Button btn && btn.CommandParameter is Booking booking)
             {
-                
+                new CUDWindow(new Views.CUD.CUDBooking(booking.BookingId)).ShowDialog();
+                int currentPage = int.TryParse(txbCurrentPage?.Text, out int tempPage) ? tempPage : 1;
+                LoadData(txbCurrentPage.Text, comboboxItems[cmbRecordsPerPage.SelectedIndex], currentPage);
+
             }
             else
             {

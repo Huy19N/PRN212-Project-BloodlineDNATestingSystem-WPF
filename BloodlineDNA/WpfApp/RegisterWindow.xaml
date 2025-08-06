@@ -49,7 +49,7 @@
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Đăng Ký"
+                <TextBlock Text="Register"
                        Foreground="DarkGray"
                        FontSize="10"
                        FontFamily="Arial"
@@ -102,7 +102,7 @@
                          FontFamily="{StaticResource Montserrat}"
                          FontSize="25"
                          HorizontalAlignment="Center"/>
-                    <TextBlock Text="Làm ơn đăng ký trước khi sử dụng hệ thống!"
+                    <TextBlock Text="Please register before use system!"
                            Foreground="LightGray"
                            FontSize="12"
                            FontFamily="{StaticResource Montserrat}"
@@ -135,7 +135,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Họ và Tên"
+                    <TextBlock Text="FullName"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -185,7 +185,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Nơi Ở"
+                    <TextBlock Text="Address"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -211,7 +211,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Số Điện Thoại"
+                    <TextBlock Text="Number Phone"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -237,7 +237,7 @@
                         </TextBox.Background>
                     </TextBox>
 
-                    <TextBlock Text="Mật Khẩu"
+                    <TextBlock Text="Password"
                            FontSize="12"
                            FontFamily="{StaticResource Montserrat}"
                            Foreground="Gray"
@@ -261,7 +261,7 @@
                         </PasswordBox.Background>
                     </PasswordBox>
 
-                    <TextBlock Text="Xác Thực Mật Khẩu"
+                    <TextBlock Text="Confirm Password"
                        FontSize="12"
                        FontFamily="{StaticResource Montserrat}"
                        Foreground="Gray"
@@ -286,7 +286,7 @@
 
                     <Button x:Name="btnRegister"
                         BorderThickness="0"
-                        Content="Đăng Ký"
+                        Content="Register"
                         Foreground="White"
                         FontSize="16"
                         FontFamily="Arial"
@@ -318,7 +318,7 @@
                             HorizontalAlignment="Center"
                             Margin="0,15,0,0">
 
-                        <TextBlock Text="Đăng Nhập"
+                        <TextBlock Text="Login"
                                    Foreground="LightGray"
                                    FontSize="12"
                                    FontFamily="{StaticResource Montserrat}"

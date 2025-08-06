@@ -52,7 +52,7 @@ namespace WpfApp.Views.Customer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi tải danh sách dịch vụ: " + ex.Message);
+                MessageBox.Show("Error Loading Service: " + ex.Message);
             }
         }
 
@@ -63,12 +63,12 @@ namespace WpfApp.Views.Customer
                 // Kiểm tra dữ liệu cơ bản
                 if (cbServicePrice.SelectedValue == null || !dpAppointmentDate.SelectedDate.HasValue)
                 {
-                    MessageBox.Show("Vui lòng chọn dịch vụ và ngày hẹn.");
+                    MessageBox.Show("Please select 1 price type.");
                     return;
                 }
                 if (!dpPerson1Birth.SelectedDate.HasValue || !dpPerson2Birth.SelectedDate.HasValue)
                 {
-                    MessageBox.Show("Vui lòng nhập ngày sinh cho cả hai người.");
+                    MessageBox.Show("Please enter birthday customer!.");
                     return;
                 }
 
@@ -90,7 +90,8 @@ namespace WpfApp.Views.Customer
                     FullName = txtPerson1Name.Text,
                     Gender = txtGender1.Text,
                     BirthDate = DateOnly.FromDateTime(dpPerson1Birth.SelectedDate.Value),
-                    IdentifyId = txtPerson1ID.Text
+                    IdentifyId = txtPerson1ID.Text,
+                    SampleId = 1
                 };
                 _patientService.AddPatient(patient1);
 
@@ -101,17 +102,18 @@ namespace WpfApp.Views.Customer
                     FullName = txtPerson2Name.Text,
                     Gender = txtGender2.Text,
                     BirthDate = DateOnly.FromDateTime(dpPerson2Birth.SelectedDate.Value),
-                    IdentifyId = txtPerson2ID.Text
+                    IdentifyId = txtPerson2ID.Text,
+                    SampleId = 1
                 };
                 _patientService.AddPatient(patient2);
 
-                MessageBox.Show("Đặt lịch thành công!");
+                MessageBox.Show("Booking Successfully!");
 
                 ResetForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tạo booking: " + ex.Message);
+                MessageBox.Show("Error Create Booking: " + ex.Message);
             }
         }
 

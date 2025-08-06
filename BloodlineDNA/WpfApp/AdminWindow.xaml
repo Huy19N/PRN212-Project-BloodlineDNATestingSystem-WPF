@@ -69,7 +69,7 @@
                         <RadioButton x:Name="btnDashboard" GroupName="nav" Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color1}" >
                             <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
+                                <fa:IconImage Icon="Dashboard" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Dashboard" Style="{StaticResource menuButtonText}"/>
                             </StackPanel> 
                         </RadioButton>
@@ -95,23 +95,13 @@
                             </StackPanel>
                         </RadioButton>
                     </StackPanel>
-                    <!-- Blog -->
-                    <StackPanel>
-                        <RadioButton x:Name="btnBlog" GroupName="nav" Style="{StaticResource menuButton}"
-                                     Tag="{StaticResource color4}" >
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="MoneyBill" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Blog" Style="{StaticResource menuButtonText}"/>
-                            </StackPanel>
-                        </RadioButton>
-                    </StackPanel>
 
                     <!-- Logout -->
                     <StackPanel>
                         <RadioButton x:Name="btnLogout" GroupName="nav" Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color4}" Click="btnLogout_Click">
                             <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="MoneyBill" Style="{StaticResource menuButtonIcon}"/>
+                                <fa:IconImage Icon="DoorOpen" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Logout" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>

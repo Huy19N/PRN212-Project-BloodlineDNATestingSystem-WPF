@@ -23,7 +23,7 @@
 
             <!-- Service Selection -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Service:" Width="150" VerticalAlignment="Center" Foreground="White"/>
+                <TextBlock Text="Service Price:" Width="150" VerticalAlignment="Center" Foreground="White"/>
                 <ComboBox x:Name="cbServicePrice" Width="300" 
                           DisplayMemberPath="DisplayName" 
                           SelectedValuePath="ServicePriceID"
@@ -69,8 +69,9 @@
                     Content="Submit Booking" 
                     Background="#6600CC" 
                     Foreground="White" 
-                    FontWeight="Bold" 
+                    FontWeight="Bold"
                     Width="200"
+                    Margin="0,8,0,0"
                     Click="btnSubmit_Click"
                     HorizontalAlignment="Center"/>
         </StackPanel>
